@@ -42,7 +42,7 @@ public class Assignment1 {
       } else {
         // Get the old head Node
         Node oldHead = head;
-        // Make the new node the head Node
+        // Make the new Node the head Node
         newHead.next = oldHead;
         head = newHead;
       }
@@ -51,7 +51,7 @@ public class Assignment1 {
     /* Pop operation finds the Node at the top of the Stack,
     removes it by making the Node before it the head Node */
     public void pop() throws Exception {
-      // Do not pop if the LinkedStack is empty
+      // If the LinkedStack is empty, exit
       if (head == null) {
         throw new Exception("The pop operation can not be executed as the Linked Stack is empty");
       }
@@ -85,7 +85,7 @@ public class Assignment1 {
       File file = new File("ds20s-a1.txt");
       Scanner myReader = new Scanner(file);
 
-      // create an instance of LinkedStack object
+      // Create an instance of LinkedStack object
       LinkedStack myLinkedStack = new LinkedStack();
 
       while (myReader.hasNextLine()) {

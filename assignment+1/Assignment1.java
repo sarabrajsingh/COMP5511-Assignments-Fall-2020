@@ -25,7 +25,7 @@ public class Assignment1 {
       this.head = null;
     }
 
-    // Returns the Node at the top of the LinkedStack
+    // Prints the Node at the top of the LinkedStack
     public void printTopNode() {
       System.out.println(head.line);
     }

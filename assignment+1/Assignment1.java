@@ -1,5 +1,5 @@
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
 import java.util.Scanner;
 
 public class Assignment1 {
@@ -58,6 +58,11 @@ public class Assignment1 {
             }
             System.out.println("(TAIL)");
         }
+
+        // peek at head
+        public void peek(){
+            System.out.println(head.value);
+        }
     }
 
     public static void main(String[] args) {
@@ -65,11 +70,11 @@ public class Assignment1 {
         LinkedListStack<String> lls = new LinkedListStack<>();
         // get a filesystem reference to the flat file to load; as per assignment1
         // instructions
-        Path path = Paths.get("ds20s-a1.txt");
+        File file = new File("ds20s-a1.txt");
         // use the scanner class, in conjunction with a switch statement; to read the
         // file line by line and determine the resultant set of data to be inserted into
         // the stack
-        try (Scanner scanner = new Scanner(path)) {
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = (scanner.nextLine()).trim();
                 switch (line) {

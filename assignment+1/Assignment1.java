@@ -3,15 +3,15 @@ import java.util.Scanner;
 
 public class Assignment1 {
 
-  private static class LinkedStack {
+  private static class LinkedStack<G> {
     /* Node class is made up of a string (line)
     and a reference to the next Node */
-    private static class Node {
-      private String line;
+    private static class Node<G> {
+      private G line;
       private Node next;
 
       // Constructor for the Node Class
-      private Node (String line) {
+      private Node (G line) {
         this.line = line;
         this.next = null;
       }
@@ -33,8 +33,8 @@ public class Assignment1 {
     /* Push operation creates a Node from the given line,
     puts it on top of the stack and creates a link between the
     old and new head Nodes if the LinkedStack is not empty */
-    public void push (String line) {
-      Node newHead = new Node(line);
+    public void push (G line) {
+      Node<G> newHead = new Node<>(line);
 
       if (head == null) {
         // Make the given line the head node and exit
@@ -86,7 +86,7 @@ public class Assignment1 {
       Scanner myReader = new Scanner(file);
 
       // Create an instance of LinkedStack object
-      LinkedStack myLinkedStack = new LinkedStack();
+      LinkedStack<String> myLinkedStack = new LinkedStack<>();
 
       while (myReader.hasNextLine()) {
         String line = myReader.nextLine();
@@ -110,7 +110,7 @@ public class Assignment1 {
 
     // Catch errors that may arise in reading the file
     } catch (Exception e) {
-      System.out.println("An error occurred.");
+      System.out.println("An error occurred while trying to read the input file.");
       e.printStackTrace();
     }
   }

@@ -73,7 +73,7 @@ public class Assignment2PQ2 {
       }
     }
 
-    // print the tree using in order traversal
+    // prints a given binary tree using inorder traversal
     public void printTree() {
       Stack<Node> s = new Stack<Node>();
       Node current = this.root;
@@ -98,21 +98,6 @@ public class Assignment2PQ2 {
       }
       // print a new line when we reach the end of the tree
       System.out.println("");
-    }
-  }
-
-  public static Object evaluateNode(BinaryTree.Node n) {
-    BinaryTree.Node rightChild = n.getRight();
-    BinaryTree.Node leftChild = n.getLeft();
-
-    if (leftChild.isParent() & rightChild.isParent()) {
-      return 1;
-    } else if (rightChild.isParent()) {
-      return 2;
-    } else if (leftChild.isParent()) {
-      return 3;
-    } else {
-      return 4;
     }
   }
 
@@ -205,7 +190,6 @@ public class Assignment2PQ2 {
     BinaryTree.Node<Integer> r8 = new BinaryTree.Node<>(2);
     bt.rightInsert(r8, r2);
 
-    // Peek at the tree, using inorder traversal
     bt.printTree();
 
     Stack s = createStack(bt);

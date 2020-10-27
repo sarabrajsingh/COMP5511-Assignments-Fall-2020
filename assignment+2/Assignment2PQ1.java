@@ -17,7 +17,7 @@ public class Assignment2PQ1 {
     // Class variable that represents the head Node at the top
     public Node head;
 
-    // Constructor for the LinkedStack Class
+    // Constructor for the LinkedList Class
     public MyLinkedList() {
       this.head = null;
     }

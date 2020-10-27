@@ -100,7 +100,8 @@ public class Assignment2PQ2 {
       System.out.println("");
     }
   }
-
+  
+  // creates a Stack from a given Binary tree
   public static Stack createStack(BinaryTree bt) {
     Stack<Object> evaluationStack = new Stack<>();
     Stack<BinaryTree.Node> traversalStack = new Stack<BinaryTree.Node>();
@@ -125,7 +126,8 @@ public class Assignment2PQ2 {
     }
     return evaluationStack;
   }
-
+  
+  // solves a postfix expression stored in a stack 
   public static Integer solvePostfix(Stack s) {
     Stack<Object> temp = new Stack<>();
     Integer size = s.size();

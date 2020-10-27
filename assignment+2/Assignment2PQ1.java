@@ -3,12 +3,12 @@ public class Assignment2PQ1 {
   // A custom linked list class
   public static class MyLinkedList<G> {
 
-    public static class Node<G> {
-      public G data;
-      public Node next;
+    private class Node<G> {
+      private G data;
+      private Node next;
 
       // Constructor for the Node class
-      public Node (G data) {
+      private Node (G data) {
         this.data = data;
         this.next = null;
       }
@@ -51,36 +51,34 @@ public class Assignment2PQ1 {
         }
       }
     }
-  }
 
-  public static int iterativeCount(MyLinkedList ll) {
-    MyLinkedList.Node head = ll.peek();
+    public int iterativeCount() {
+      /* If head is null, linked list is empty,
+      therefore, return 0 */
+      if (this.head == null) {
+        return 0;
 
-    /* if head is null, linked list is empty,
-    therefore, return 0 */
-    if (head == null) {
-      return 0;
+      /* If head is not null, iterate through the
+      elements of the linked list */
+      } else {
+        Node next_element = head;
+        int count = 0;
 
-    /* if head is not null, iterate through the
-    elements of the linked list */
-    } else {
-      MyLinkedList.Node next_element = head;
-      int count = 0;
-
-      while (next_element != null) {
-        next_element = next_element.next;
-        count++;
+        while (next_element != null) {
+          next_element = next_element.next;
+          count++;
+        }
+        return count;
       }
-      return count;
     }
-  }
 
-  public static int recursiveCount(MyLinkedList.Node node) {
-    // Base case
-    if (node == null) {
-      return 0;
-    } else {
-      return 1 + recursiveCount(node.next);
+    public int recursiveCount(Node node) {
+      // Base case 
+      if (node == null) {
+        return 0;
+      } else {
+        return 1 + recursiveCount(node.next);
+      }
     }
   }
 
@@ -96,10 +94,10 @@ public class Assignment2PQ1 {
     ll.add(5);
     ll.add(6);
 
-    int c = iterativeCount(ll);
+    int c = ll.iterativeCount();
     System.out.format("Iterative count yields: %s\n", c);
 
-    int c1 = recursiveCount(ll.peek());
+    int c1 = ll.recursiveCount(ll.peek());
     System.out.format("Recursive count yields: %s\n", c1);
   }
 }

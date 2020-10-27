@@ -21,7 +21,7 @@ public class Assignment1 {
     private Node head;
 
     // Constructor for the LinkedStack Class
-    public LinkedStack () {
+    public LinkedStack() {
       this.head = null;
     }
 

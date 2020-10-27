@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Assignment2PQ2 {
 
-  // a basic class that represents the node in a Binary Tree
+  // a basic class that represents a node in a Binary Tree
   public static class Node<G> {
     public G data;
     public Node left;

@@ -45,7 +45,7 @@ public class Assignment2PQ2 {
       // if tree is empty, set the node as root
       if (this.root == null) {
         this.root = new_node;
-      /* otherwise, insert the new node on the right */
+      // otherwise, insert the new node on the right
       } else {
         Node rightChild = parent.getRight();
 

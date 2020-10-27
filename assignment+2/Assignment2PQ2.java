@@ -3,37 +3,38 @@ import java.util.Arrays;
 
 public class Assignment2PQ2 {
 
-  // a really basic Binary Tree Class
-  public static class BinaryTree {
-    public static class Node<G> {
-      public G data;
-      public Node left;
-      public Node right;
+  // a basic class that represents the node in a Binary Tree
+  public static class Node<G> {
+    public G data;
+    public Node left;
+    public Node right;
 
-      // constructor of Node
-      public Node(G data) {
-        this.data = data;
-        this.right = null;
-        this.left = null;
-      }
-
-      public Node getRight() {
-        return this.right;
-      }
-
-      public Node getLeft() {
-        return this.left;
-      }
-
-      public boolean isParent() {
-        if (this.right == null & this.left == null) {
-          return false;
-        } else {
-          return true;
-        }
-      }
+    // constructor of Node
+    public Node(G data) {
+      this.data = data;
+      this.right = null;
+      this.left = null;
     }
 
+    public Node getRight() {
+      return this.right;
+    }
+
+    public Node getLeft() {
+      return this.left;
+    }
+
+    public boolean isParent() {
+      if (this.right == null & this.left == null) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  // a basic Binary Tree Class
+  public static class BinaryTree {
     public Node root;
 
     // constructor of BinaryTree
@@ -100,13 +101,13 @@ public class Assignment2PQ2 {
       System.out.println("");
     }
   }
-  
+
   // creates a Stack from a given Binary tree
   public static Stack createStack(BinaryTree bt) {
     Stack<Object> evaluationStack = new Stack<>();
-    Stack<BinaryTree.Node> traversalStack = new Stack<BinaryTree.Node>();
+    Stack<Node> traversalStack = new Stack<Node>();
 
-    BinaryTree.Node current = bt.root;
+    Node current = bt.root;
 
     if (current == null) {
       System.out.println("There is no arithmetic operation to evaluate on the given tree.");
@@ -126,8 +127,8 @@ public class Assignment2PQ2 {
     }
     return evaluationStack;
   }
-  
-  // solves a postfix expression stored in a stack 
+
+  // solves a postfix expression stored in a stack
   public static Integer solvePostfix(Stack s) {
     Stack<Object> temp = new Stack<>();
     Integer size = s.size();
@@ -165,39 +166,42 @@ public class Assignment2PQ2 {
     BinaryTree bt = new BinaryTree();
 
     // Populate the binary tree
-    BinaryTree.Node<String> r0 = new BinaryTree.Node<>("+");
+    Node<String> r0 = new Node<>("+");
     bt.rightInsert(r0, null);
 
-    BinaryTree.Node<String> r1 = new BinaryTree.Node<>("x");
+    Node<String> r1 = new Node<>("x");
     bt.leftInsert(r1, r0);
 
-    BinaryTree.Node<String> r2 = new BinaryTree.Node<>("x");
+    Node<String> r2 = new Node<>("x");
     bt.rightInsert(r2, r0);
 
-    BinaryTree.Node<Integer> r3 = new BinaryTree.Node<>(2);
+    Node<Integer> r3 = new Node<>(2);
     bt.leftInsert(r3, r1);
 
-    BinaryTree.Node<String> r4 = new BinaryTree.Node<>("-");
+    Node<String> r4 = new Node<>("-");
     bt.rightInsert(r4, r1);
 
-    BinaryTree.Node<Integer> r5 = new BinaryTree.Node<>(5);
+    Node<Integer> r5 = new Node<>(5);
     bt.leftInsert(r5, r4);
 
-    BinaryTree.Node<Integer> r6 = new BinaryTree.Node<>(1);
+    Node<Integer> r6 = new Node<>(1);
     bt.rightInsert(r6, r4);
 
-    BinaryTree.Node<Integer> r7 = new BinaryTree.Node<>(3);
+    Node<Integer> r7 = new Node<>(3);
     bt.leftInsert(r7, r2);
 
-    BinaryTree.Node<Integer> r8 = new BinaryTree.Node<>(2);
+    Node<Integer> r8 = new Node<>(2);
     bt.rightInsert(r8, r2);
 
+    System.out.print("Inorder traversal of the given Binary Tree yields: ");
     bt.printTree();
 
     Stack s = createStack(bt);
+    System.out.print("The stack created from the given Binary Tree looks like: ");
     System.out.println(Arrays.toString(s.toArray()));
 
     Integer result = solvePostfix(s);
+    System.out.print("Solving the postfix expression stored in the stack yields the solution: ");
     System.out.println(result);
   }
 }

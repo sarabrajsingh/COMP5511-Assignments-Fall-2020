@@ -73,7 +73,7 @@ public class Assignment2PQ2 {
       }
     }
 
-    // print the tree using in order traversal
+    // prints a given binary tree using inorder traversal
     public void printTree() {
       Stack<Node> s = new Stack<Node>();
       Node current = this.root;
@@ -100,22 +100,8 @@ public class Assignment2PQ2 {
       System.out.println("");
     }
   }
-
-  public static Object evaluateNode(BinaryTree.Node n) {
-    BinaryTree.Node rightChild = n.getRight();
-    BinaryTree.Node leftChild = n.getLeft();
-
-    if (leftChild.isParent() & rightChild.isParent()) {
-      return 1;
-    } else if (rightChild.isParent()) {
-      return 2;
-    } else if (leftChild.isParent()) {
-      return 3;
-    } else {
-      return 4;
-    }
-  }
-
+  
+  // creates a Stack from a given Binary tree
   public static Stack createStack(BinaryTree bt) {
     Stack<Object> evaluationStack = new Stack<>();
     Stack<BinaryTree.Node> traversalStack = new Stack<BinaryTree.Node>();
@@ -140,7 +126,8 @@ public class Assignment2PQ2 {
     }
     return evaluationStack;
   }
-
+  
+  // solves a postfix expression stored in a stack 
   public static Integer solvePostfix(Stack s) {
     Stack<Object> temp = new Stack<>();
     Integer size = s.size();
@@ -205,7 +192,6 @@ public class Assignment2PQ2 {
     BinaryTree.Node<Integer> r8 = new BinaryTree.Node<>(2);
     bt.rightInsert(r8, r2);
 
-    // Peek at the tree, using inorder traversal
     bt.printTree();
 
     Stack s = createStack(bt);

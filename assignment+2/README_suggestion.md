@@ -3,7 +3,7 @@ Sarabraj Singh      29473858
 John Purcell        27217439
 Hugo Joncour        40139230
 
-# COMP5511-Assignments-Fall-2020
+COMP5511: Data Structures & Algorithms: Bipin C. Desai: Section DD
 
 1) General:
 

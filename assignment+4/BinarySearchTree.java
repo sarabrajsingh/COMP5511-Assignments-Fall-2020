@@ -1,16 +1,16 @@
 package assignment4;
 import java.util.*;
 
-public class BinarySearchTree<V> {
+public class BinarySearchTree {
 
-  private class Node<V> {
+  private class Node {
     private String key;
-    private V value;
+    private Record value;
     private Node left;
     private Node right;
 
     // constructor for Node class
-    private Node(String key, V value) {
+    private Node(String key, Record value) {
       this.key = key;
       this.value = value;
       this.right = null;
@@ -25,10 +25,10 @@ public class BinarySearchTree<V> {
     this.root = null;
   }
 
-  public void insert(String key, V value) {
+  public void insert(String key, Record value) {
     // base case: Root is null
     if (this.root == null) {
-      this.root = new Node<>(key, value);
+      this.root = new Node(key, value);
       return;
     }
 
@@ -42,7 +42,7 @@ public class BinarySearchTree<V> {
           current = current.left;
         // if left node is null, insert new Node to the left of current
         } else {
-          current.left = new Node<>(key, value);
+          current.left = new Node(key, value);
           break;
         }
       // look right
@@ -52,7 +52,7 @@ public class BinarySearchTree<V> {
           current = current.right;
         // if right node is null, insert new Node to the right of current
         } else {
-          current.right = new Node<>(key, value);
+          current.right = new Node(key, value);
           break;
         }
       } else {
@@ -77,8 +77,10 @@ public class BinarySearchTree<V> {
 
   // search method exposed to users
   public void search(String key) {
-      Node result = pSearch(this.root, key);
-      System.out.println(result.value);
+    // TODO: ADD TRY CATCH BLOCK IF RECORD NOT FOUND
+    Node n = pSearch(this.root, key);
+    Record result = n.value;
+    result.printRecord();
   }
 
   // prints a given binary tree using inorder traversal
@@ -110,5 +112,22 @@ public class BinarySearchTree<V> {
 
   public static void main(String[] args) {
     System.out.println("Succesfully created a Binary Search Tree.");
+
+    // testing
+    BinarySearchTree bs = new BinarySearchTree();
+    Record e1 = new Record("EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec");
+    Record e2 = new Record("EFOWB,Rapides Boisvert,Rapids,46.6175,-74.263336,Quebec");
+    Record e3 = new Record("FDLAP,Mud Lake,Lake,48.161366,-79.93589,Ontario");
+    Record e4 = new Record("FBUEQ,Keswil Creek,Creek,46.092213,-78.97416,Ontario");
+    Record e5 = new Record("ABWNT,Coopers Head,Head,47.338722,-53.90362,Newfoundland and Labrador");
+
+    bs.insert("EJEIZ", e1);
+    bs.insert("EFOWB", e2);
+    bs.insert("FDLAP", e3);
+    bs.insert("FBUEQ", e4);
+    bs.insert("ABWNT", e5);
+
+    bs.inorderTraversal();
+    bs.search("ABWNT");
   }
 }

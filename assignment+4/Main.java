@@ -45,7 +45,7 @@ public class Main {
 
     ArrayList<Record> csv = new ArrayList<>();
     try {
-      csv = readCSV("cgn_qc_csv_eng.csv");
+      csv = readCSV("data/cgn_qc_csv_eng.csv");
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     } catch(IOException e) {
@@ -66,7 +66,7 @@ public class Main {
     System.out.println("===========================");
 
     try {
-      File file = new File("queries.txt");
+      File file = new File("log_files/queries.txt");
       Scanner sc = new Scanner(file);
       sc.useDelimiter("\n");
       System.out.println(sc.next());

@@ -24,6 +24,7 @@ public class Main {
       br.readLine();
       String row;
       int c = 0;
+
       while((row = br.readLine()) != null) {
         Record r = new Record(row);
         records.add(r);
@@ -44,7 +45,7 @@ public class Main {
 
     ArrayList<Record> csv = new ArrayList<>();
     try {
-      csv = readCSV("cgn_canada_csv_eng.csv");
+      csv = readCSV("cgn_qc_csv_eng.csv");
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     } catch(IOException e) {
@@ -57,7 +58,8 @@ public class Main {
       bs.insert(r.cgndbId, r);
     }
 
-    bs.search("FDLAP");
+    bs.inorderTraversal();
+    bs.search("EHDNQ");
 
     System.out.println();
     System.out.println("READING QUERIES...");

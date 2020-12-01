@@ -3,14 +3,14 @@ import java.util.*;
 
 public class BinarySearchTree {
 
-  private class Node {
-    private String key;
-    private Record value;
-    private Node left;
-    private Node right;
+  public class Node {
+    public String key;
+    public Record value;
+    public Node left;
+    public Node right;
 
     // constructor for Node class
-    private Node(String key, Record value) {
+    public Node(String key, Record value) {
       this.key = key;
       this.value = value;
       this.right = null;
@@ -62,25 +62,49 @@ public class BinarySearchTree {
     }
   }
 
-  private Node pSearch(Node root, String key) {
-      // base case: root is null or key is present at root
-      if (root==null || root.key==key)
-          return root;
-
-      // key is less than root's key
-      if (key.compareTo(root.key) < 0) {
-        return pSearch(root.left, key);
+  public Node recursiveSearch(Node n, String key) {
+      // base case: key is equal to search key
+      if (n.key==key) {
+          return n;
       }
 
-      return pSearch(root.right, key);
+      // key is less than root's key
+      if (key.compareTo(n.key) < 0) {
+        return recursiveSearch(n.left, key);
+      }
+
+      return recursiveSearch(n.right, key);
+  }
+
+  public Node iterativeSearch(String key) {
+    Node n = this.root;
+
+    // traverse until we reach a dead end
+    while (n != null) {
+      if (key.compareTo(n.key) < 0) {
+        n = n.left;
+      } else if (key.compareTo(n.key) > 0) {
+        n = n.right;
+      // if found, return n
+      } else if (key.compareTo(n.key) == 0) {
+        return n;
+      }
+    }
+    return null;
   }
 
   // search method exposed to users
   public void search(String key) {
-    // TODO: ADD TRY CATCH BLOCK IF RECORD NOT FOUND
-    Node n = pSearch(this.root, key);
-    Record result = n.value;
-    result.printRecord();
+    try {
+      // Can use iterative or recursive search methods here
+      Node n = iterativeSearch(key);
+      // Node n = recursiveSearch(this.root, key);
+      Record r = n.value;
+      r.printRecord();
+    } catch(NullPointerException e) {
+      System.out.println("Record was not found");
+      e.printStackTrace();
+    }
   }
 
   // prints a given binary tree using inorder traversal

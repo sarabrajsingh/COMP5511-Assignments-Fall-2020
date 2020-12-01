@@ -25,7 +25,6 @@ public class Record {
     elements in the list need to be merged to get the entire
     geographic name into one string */
     if (sub.size() > 1) {
-      System.out.println(this.cgndbId);
       String name = "";
       for(String s : sub) {
         name = name + s + ",";

@@ -3,14 +3,14 @@ import java.util.*;
 
 public class BinarySearchTree {
 
-  public class Node {
-    public String key;
-    public Record value;
-    public Node left;
-    public Node right;
+  private class Node {
+    private String key;
+    private Record value;
+    private Node left;
+    private Node right;
 
-    // constructor for Node class
-    public Node(String key, Record value) {
+    // constructor for Node object
+    private Node(String key, Record value) {
       this.key = key;
       this.value = value;
       this.right = null;
@@ -20,7 +20,7 @@ public class BinarySearchTree {
 
   public Node root;
 
-  // constructor for BST class
+  // constructor for BST object
   public BinarySearchTree() {
     this.root = null;
   }
@@ -62,7 +62,8 @@ public class BinarySearchTree {
     }
   }
 
-  public Node recursiveSearch(Node n, String key) {
+  // conducts a search, recursively, within the BST
+  private Node recursiveSearch(Node n, String key) {
       // base case: key is equal to search key
       if (n.key==key) {
           return n;
@@ -76,7 +77,8 @@ public class BinarySearchTree {
       return recursiveSearch(n.right, key);
   }
 
-  public Node iterativeSearch(String key) {
+  // conducts a search, iteratively, within the BST
+  private Node iterativeSearch(String key) {
     Node n = this.root;
 
     // traverse until we reach a dead end

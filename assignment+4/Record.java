@@ -1,6 +1,5 @@
 // a custom class that represents each unique record from the GNIS file
 package assignment4;
-import java.util.*;
 
 public class Record {
   public String cgndbId;
@@ -12,19 +11,26 @@ public class Record {
 
   // constructor for Record object
   public Record(String l) {
-    ArrayList<String> elements = new ArrayList<String>(Arrays.asList(l.split(",")));
-    this.cgndbId = elements.get(0);
-    this.genericTerm = elements.get(elements.size()-4);
-    this.latitude = Float.parseFloat(elements.get(elements.size()-3));
-    this.longitude = Float.parseFloat(elements.get(elements.size()-2));
-    this.province = elements.get(elements.size()-1);
+    String[] elements = l.split(",");
+    int size = elements.length;
 
-    ArrayList<String> sub = new ArrayList<String>(elements.subList(1,elements.size()-4));
+    this.cgndbId = elements[0];
+    this.genericTerm = elements[size-4];
+    this.latitude = Float.parseFloat(elements[size-3]);
+    this.longitude = Float.parseFloat(elements[size-2]);
+    this.province = elements[size-1];
 
-    /* if geographic name contains one or more commas, multiple
-    elements in the list need to be merged to get the entire
-    geographic name into one string */
-    if (sub.size() > 1) {
+    /* if size is greater than 6, it means geographic name contains one
+    or more commas. We need to merge multiple elements in the list
+    to get the entire geographic name into one string */
+    if (size > 6) {
+      String[] sub = new String[size-5];
+      // get a sublist of every element thats a part of the geographic name
+      for (int i = 0; i < sub.length; i++) {
+        sub[i] = elements[i+1];
+      }
+
+      // merge the individual elements into one string
       String name = "";
       for(String s : sub) {
         name = name + s + ",";
@@ -32,10 +38,11 @@ public class Record {
       this.geographicName = name.substring(1, name.length()-2);
     // if the geographic name does not contain any commas, get the name from index 1
     } else {
-      this.geographicName = elements.get(1);
+      this.geographicName = elements[1];
     }
   }
 
+  // print the info of a given record on console
   public void printRecord() {
     System.out.printf("|| CGNDBID: %s ---> ", this.cgndbId);
     System.out.printf("Geographic Name: %s | ", this.geographicName);

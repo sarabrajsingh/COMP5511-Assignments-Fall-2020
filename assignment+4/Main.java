@@ -12,13 +12,25 @@ import java.util.*;
 public class Main {
 
     // reads a given csv file line by line, returns an arraylist of records
-    public static ArrayList<Record> readCSV(String filename) throws IOException {
+    public static int lineCounter(String filename) throws IOException {
       File file = new File(filename);
       FileReader fr = new FileReader(file);
       BufferedReader br = new BufferedReader(fr);
 
-      // initialize an arraylist that will store the collection of all record objects
-      ArrayList<Record> records = new ArrayList<>();
+      int lineCount = 0;
+      while (br.readLine() != null) {
+        lineCount++;
+      }
+      return lineCount;
+    }
+
+    public static Record[] readCSV(String filename, int lineCount) throws IOException {
+      File file = new File(filename);
+      FileReader fr = new FileReader(file);
+      BufferedReader br = new BufferedReader(fr);
+
+      // initialize an array that will store the collection of all record objects
+      Record[] records = new Record[lineCount-1];
 
       // skip first row
       br.readLine();
@@ -27,9 +39,10 @@ public class Main {
 
       while((row = br.readLine()) != null) {
         Record r = new Record(row);
-        records.add(r);
-        // print every 5000th record for demonstration purposes
-        if (c%5000 == 0) {
+        records[c] = r;
+
+        // print every 10000th record for demonstration purposes
+        if (c%10000 == 0) {
           r.printRecord();
         }
         c++;
@@ -39,27 +52,35 @@ public class Main {
       return records;
     }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     System.out.println("READING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
     System.out.println("===========================");
 
-    ArrayList<Record> csv = new ArrayList<>();
+    int lineCount = lineCounter("data/cgn_canada_csv_eng.csv");
+    System.out.println(lineCount);
+    Record[] csv = new Record[lineCount];
+
     try {
-      csv = readCSV("data/cgn_qc_csv_eng.csv");
+      csv = readCSV("data/cgn_canada_csv_eng.csv", lineCount);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
-    } catch(IOException e) {
-      e.printStackTrace();
     }
 
-    // Create BST for ID look up
+    // create BST for ID look up
     BinarySearchTree bs = new BinarySearchTree();
     for (Record r : csv) {
       bs.insert(r.cgndbId, r);
     }
 
-    bs.inorderTraversal();
-    bs.search("EHDNQ");
+    // create an Inverted Index for Geographic Name Lookup
+    InvertedIndex inv = new InvertedIndex();
+    for (Record r : csv) {
+      inv.put(r.geographicName, r);
+    }
+
+    // create an Inverted Index for Generic Term Lookup
+
+    // create a B Tree for Lat/Long Lookup
 
     System.out.println();
     System.out.println("READING QUERIES...");
@@ -77,6 +98,8 @@ public class Main {
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }
+
+    // Perform the searches
 
   }
 }

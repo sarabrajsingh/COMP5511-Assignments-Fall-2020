@@ -49,7 +49,6 @@ public class Record {
     System.out.printf("Generic Term: %s | ", this.genericTerm);
     System.out.printf("Latitude: %s | ", this.latitude);
     System.out.printf("Longitude: %s | ", this.longitude);
-    System.out.printf("Province: %s ||", this.province);
-    System.out.println();
+    System.out.printf("Province: %s ||\n", this.province);
   }
 }

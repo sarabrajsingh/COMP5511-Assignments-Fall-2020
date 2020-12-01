@@ -41,8 +41,8 @@ public class Main {
         Record r = new Record(row);
         records[c] = r;
 
-        // print every 10000th record for demonstration purposes
-        if (c%10000 == 0) {
+        // print every 1000th record for demonstration purposes
+        if (c%1000 == 0) {
           r.printRecord();
         }
         c++;
@@ -54,14 +54,18 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     System.out.println("READING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
+    // choose the file to work with
+    String filename = "data/cgn_yt_csv_eng.csv";
+
+    // count lines and instantiate a record array of the same size
+    int lineCount = lineCounter(filename);
+    System.out.printf("File chosen: %s \n", filename.split("/")[1]);
+    System.out.printf("Total records: %s \n", lineCount);
+    Record[] csv = new Record[lineCount];
     System.out.println("===========================");
 
-    int lineCount = lineCounter("data/cgn_canada_csv_eng.csv");
-    System.out.println(lineCount);
-    Record[] csv = new Record[lineCount];
-
     try {
-      csv = readCSV("data/cgn_canada_csv_eng.csv", lineCount);
+      csv = readCSV(filename, lineCount);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }

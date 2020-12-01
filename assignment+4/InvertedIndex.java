@@ -1,12 +1,11 @@
 package assignment4;
-import java.util.*;
 
 // list of terms, pointing to the respective record
 public class InvertedIndex {
 
   public Entry[] entries;
 
-  private static class Entry {
+  private class Entry {
     private String term;
     private Record[] documents;
 
@@ -114,7 +113,6 @@ public class InvertedIndex {
 
     newDocuments[newDocuments.length - 1] = document;
     e.documents = newDocuments;
-
     return;
   }
 

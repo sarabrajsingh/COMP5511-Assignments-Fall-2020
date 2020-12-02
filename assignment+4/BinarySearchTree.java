@@ -105,7 +105,6 @@ public class BinarySearchTree {
       r.printRecord();
     } catch(NullPointerException e) {
       System.out.println("Record was not found");
-      e.printStackTrace();
     }
   }
 

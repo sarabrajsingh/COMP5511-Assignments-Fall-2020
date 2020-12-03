@@ -67,27 +67,40 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     System.out.println("\nREADING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
-    System.out.println("===========================");
-    // choose the file to work with
-    String filename = "data/cgn_on_csv_eng.csv";
+    System.out.println("===========================\n");
+    // read the file names
+    String record_file = args[0];
+    String query_file = args[1];
+    String output_file = args[2];
+
     // display some info about the chosen file
-    int lineCount = lineCounter(filename);
-    System.out.printf("\nFile chosen: %s \n", filename.split("/")[1]);
+    int lineCount = lineCounter(record_file);
     System.out.printf("Total records: %s \n\n", lineCount);
 
     Record[] csv = new Record[lineCount];
     try {
-      csv = readCSV(filename, lineCount);
+      csv = readCSV(record_file, lineCount);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }
 
-    // create BST for ID look up
+    System.out.println("\nBUILDING IN MEMORY DATA STRUCTURES...");
+    System.out.println("===========================\n");
+
+    // create a balanced BST for ID look up
+    System.out.println(">>> Creating a Binary Search Tree for ID look up");
     BinarySearchTree bs = new BinarySearchTree();
     for (Record r : csv) {
       bs.insert(r.cgndbId, r);
     }
 
+    System.out.println(">>> Balancing the Binary Search Tree");
+    int h0 = bs.height(bs.root);
+    bs.root = bs.balanceTree(bs.root);
+    int h1 = bs.height(bs.root);
+    System.out.printf(">>> BST height before and after balancing the BST: %s vs %s\n", h0, h1);
+
+    System.out.println(">>> Creating Inverted Indices for Geographic Name, Location and Generic Term look up");
     // create an Inverted Index for Geographic Name Lookup
     InvertedIndex inv = new InvertedIndex();
     for (Record r : csv) {
@@ -100,50 +113,65 @@ public class Main {
       inv2.put(r.genericTerm, r);
     }
 
-    // create an Inverted Index for Location Lookup
+    /* create an Inverted Index for Location Lookup. Since the location
+    field has a lot of null values, we need to make sure to check for nullness
+    before inserting records into the Inverted Index */
     InvertedIndex inv3 = new InvertedIndex();
     for (Record r : csv) {
-      inv3.put(r.location, r);
+      if (r.location != null) {
+        inv3.put(r.location, r);
+      }
     }
 
     // create a B Tree for Lat/Long Lookup
+
+    // execute queries
     System.out.println("\nREADING QUERIES AND SAVING RESULTS TO LOG FILE...");
     System.out.println("===========================");
     Query q = new Query();
 
     try {
-      q = readQueries("log_files/queries.txt");
+      q = readQueries(query_file);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }
 
+    ArrayList<String> log = new ArrayList<String>();
+
     // Perform the searches
     if (q.cgndbId != null) {
       for(String id : q.cgndbId) {
-        System.out.printf("Querying %s: ", id);
-        bs.search(id);
+        System.out.printf("Querying %s: \n", id);
+        String result = bs.search(id);
+        log.add(result);
       }
     }
 
     if (q.geographicName != null) {
       for(String n : q.geographicName) {
-        System.out.printf("Querying %s: ", n);
-        inv.get(n);
+        System.out.printf("Querying %s: \n", n);
+        String result = inv.get(n);
+        log.add(result);
       }
     }
 
     if (q.genericTerm != null) {
       for(String g : q.genericTerm) {
-        System.out.printf("Querying %s: ", g);
-        inv2.get(g);
+        System.out.printf("Querying %s: \n", g);
+        String result = inv2.get(g);;
+        log.add(result);
       }
     }
 
     if (q.location != null) {
       for(String l : q.location) {
-        System.out.printf("Querying %s: ", l);
-        inv3.get(l);
+        System.out.printf("Querying %s: \n", l);
+        String result = inv3.get(l);
+        log.add(result);
+        }
       }
+
+    System.out.println(log.toString());
+
     }
-  }
 }

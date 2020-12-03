@@ -79,9 +79,17 @@ public class Main {
     System.out.println("\nREADING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
     System.out.println("===========================\n");
     // read the file names
-    String record = args[0];
-    String query = args[1];
-    String output = args[2];
+    String record = "";
+    String query = "";
+    String output = "";
+    try {
+      record = args[0];
+      query = args[1];
+      output = args[2];
+    } catch(ArrayIndexOutOfBoundsException e) {
+      System.out.println("Did not receive the required file names. \nExiting program.\n");
+      System.exit(0);
+    }
 
     // display some info about the chosen file
     int lineCount = lineCounter(record);

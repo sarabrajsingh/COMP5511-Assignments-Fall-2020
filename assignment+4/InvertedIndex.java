@@ -44,7 +44,6 @@ public class InvertedIndex {
     // add the new item to the new entries array
     this.entries = newEntries;
     this.entries[getSize()-1] = e;
-
     return;
   }
 
@@ -55,11 +54,9 @@ public class InvertedIndex {
     if (getSize() == 0) {
       return -1;
     }
-
     // loop through all of the entries to see if same term exists
     for(int i = 0; i < getSize(); i++) {
       Entry e = entries[i];
-
       if (term.equals(e.term)) {
         return i;
       }
@@ -72,7 +69,6 @@ public class InvertedIndex {
     String[] stopWords = {"à", "la", "le", "de", "des", "the", "aux", "du", "of", "sur"};
     String[] words = term.split(" ");
     String cleanedTerm = "";
-
     for (String w : words) {
       boolean clean = true;
       for (String s : stopWords) {
@@ -81,7 +77,6 @@ public class InvertedIndex {
           break;
         }
       }
-
       if (clean == true) {
         cleanedTerm = cleanedTerm + w + " ";
       }
@@ -97,7 +92,6 @@ public class InvertedIndex {
     if (i == -1) {
       Record[] documents = new Record[1];
       documents[0] = document;
-
       Entry e = new Entry(cleanTerm, documents);
       addEntry(e);
       return;
@@ -106,11 +100,9 @@ public class InvertedIndex {
     list of documents by creating a new array */
     Entry e = entries[i];
     Record[] newDocuments = new Record[e.documents.length + 1];
-
     for(int j = 0; j < e.documents.length; j++) {
       newDocuments[j] = e.documents[j];
     }
-
     newDocuments[newDocuments.length - 1] = document;
     e.documents = newDocuments;
     return;
@@ -144,7 +136,7 @@ public class InvertedIndex {
   public static void main(String[] args) {
     System.out.println("Succesfully created an Inverted Index.");
 
-    // testing
+    // code for testing
     InvertedIndex inv = new InvertedIndex();
     Record e1 = new Record("EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec");
     Record e2 = new Record("EFOWB,Rapides Boisvert,Rapids,46.6175,-74.263336,Quebec");
@@ -170,5 +162,4 @@ public class InvertedIndex {
 
     inv.printInvertedIndex();
   }
-
 }

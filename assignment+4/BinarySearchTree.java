@@ -172,7 +172,7 @@ public class BinarySearchTree {
   public static void main(String[] args) {
     System.out.println("Succesfully created a Binary Search Tree.");
 
-    // testing
+    // code for testing
     BinarySearchTree bs = new BinarySearchTree();
     Record e1 = new Record("EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec");
     Record e2 = new Record("EFOWB,Rapides Boisvert,Rapids,46.6175,-74.263336,Quebec");

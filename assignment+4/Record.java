@@ -20,7 +20,12 @@ public class Record {
     this.genericTerm = elements[2];
     this.latitude = Float.parseFloat(elements[3]);
     this.longitude = Float.parseFloat(elements[4]);
-    this.location = elements[5];
+    this.location = null;
+
+    // if there is a location, assign it to the class variable
+    if (size == 6) {
+      this.location = elements[5];
+    }
   }
 
   // print the info of a given record on console
@@ -31,5 +36,25 @@ public class Record {
     System.out.printf("Latitude: %s | ", this.latitude);
     System.out.printf("Longitude: %s | ", this.longitude);
     System.out.printf("Location: %s ||\n", this.location);
+  }
+
+  // return the entire record as a string
+  public String getRecordLog() {
+    String s0 = String.format("|| CGNDBID: %s ---> ", this.cgndbId);
+    String s1 = String.format("Geographic Name: %s | ", this.geographicName);
+    String s2 = String.format("Generic Term: %s | ", this.genericTerm);
+    String s3 = String.format("Latitude: %s | ", this.latitude);
+    String s4 = String.format("Longitude: %s | ", this.longitude);
+    String s5 = String.format("Location: %s ||", this.location);
+    return s0 + s1 + s2 + s3 + s4 + s5;
+  }
+
+  public static void main(String[] args) {
+    // testing
+    String example = "EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec";
+    Record r = new Record(example);
+    r.printRecord();
+    String logOutput = r.getRecordLog();
+    System.out.println(logOutput);
   }
 }

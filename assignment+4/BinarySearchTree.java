@@ -26,14 +26,12 @@ public class BinarySearchTree {
   }
 
   public void insert(String key, Record value) {
-    // base case: Root is null
+    // if root is null, set the node as root
     if (this.root == null) {
       this.root = new Node(key, value);
       return;
     }
-
     Node current = this.root;
-
     while(true) {
       // look left
       if (key.compareTo(current.key) < 0) {
@@ -68,19 +66,16 @@ public class BinarySearchTree {
       if (n.key==key) {
           return n;
       }
-
       // key is less than root's key
       if (key.compareTo(n.key) < 0) {
         return recursiveSearch(n.left, key);
       }
-
       return recursiveSearch(n.right, key);
   }
 
   // conducts a search, iteratively, within the BST
   private Node iterativeSearch(String key) {
     Node n = this.root;
-
     // traverse until we reach a dead end
     while (n != null) {
       if (key.compareTo(n.key) < 0) {
@@ -96,43 +91,85 @@ public class BinarySearchTree {
   }
 
   // search method exposed to users
-  public void search(String key) {
+  public String search(String key) {
     try {
       // Can use iterative or recursive search methods here
       Node n = iterativeSearch(key);
       // Node n = recursiveSearch(this.root, key);
       Record r = n.value;
       r.printRecord();
+      System.out.println();
+      String l = r.getRecordLog();
+      return l;
     } catch(NullPointerException e) {
-      System.out.println("Record was not found");
+      String o = "Record was not found\n";
+      System.out.println(o);
+      return o;
     }
   }
 
-  // prints a given binary tree using inorder traversal
-  public void inorderTraversal() {
-    Stack<Node> s = new Stack<Node>();
-    Node current = this.root;
+  // prints the elements of the BST
+  public void preOrderTraversal(Node n) {
+    if (n != null) {
+      System.out.print(n.key + " ");
+      preOrderTraversal(n.left);
+      preOrderTraversal(n.right);
+    }
+  }
 
-    if (current == null) {
-      System.out.println("Tree is empty.");
+  // computes the height of the BST
+  public int height(Node node) {
+    // base case: tree is empty
+    if (node == null) {
+      return 0;
+    }
+    int l = height(node.left);
+    int r = height(node.right);
+    if (l > r) {
+      return l + 1;
+    } else {
+      return r + 1;
+    }
+   }
+
+   // creates an array of all the nodes in inorder
+  private void nodesList(Node root, ArrayList<Node> nodes) {
+    // base case: tree is empty
+    if (root == null) {
       return;
     }
+    nodesList(root.left, nodes);
+    nodes.add(root);
+    nodesList(root.right, nodes);
+  }
 
-    // traverse the tree
-    while (current != null || s.size() > 0) {
-        // reach the left most Node of the current Node
-        while (current !=  null) {
-            s.push(current);
-            current = current.left;
-        }
-        // current must be NULL at this point
-        current = s.pop();
-        System.out.print(current.key + " ");
-        // now, visit the right subtree
-        current = current.right;
+  // recursive function to construct binary tree
+  private Node balanceTreeUtil(ArrayList<Node> nodes, int start, int end) {
+    // base case
+    if (start > end) {
+      return null;
     }
-    // print a new line when we reach the end of the tree
-    System.out.println("");
+    // get the middle element and make it root
+    int mid = (start + end) / 2;
+    Node node = nodes.get(mid);
+    /* using index in Inorder traversal, construct
+    left and right subtrees */
+    node.left = balanceTreeUtil(nodes, start, mid-1);
+    node.right = balanceTreeUtil(nodes, mid+1, end);
+    return node;
+  }
+
+  // balances a given BST
+  public Node balanceTree() {
+    // store nodes of given BST in sorted order
+    ArrayList<Node> nodes = new ArrayList<>();
+    nodesList(this.root, nodes);
+
+    /* constucts a balanced BST from the nodes list by getting
+    the middle of the array, setting it as root, and recursively
+    doing the same for all left and right trees */
+    int n = nodes.size();
+    return balanceTreeUtil(nodes, 0, n-1);
   }
 
   public static void main(String[] args) {
@@ -152,7 +189,17 @@ public class BinarySearchTree {
     bs.insert("FBUEQ", e4);
     bs.insert("ABWNT", e5);
 
-    bs.inorderTraversal();
+    bs.preOrderTraversal(bs.root);
+    System.out.println();
     bs.search("ABWNT");
+
+    int h0 = bs.height(bs.root);
+    System.out.println(h0);
+
+    bs.balanceTree(bs.root);
+
+    int h1 = bs.height(bs.root);
+    System.out.println(h1);
+
   }
 }

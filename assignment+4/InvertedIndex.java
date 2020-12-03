@@ -117,20 +117,31 @@ public class InvertedIndex {
   }
 
   // gets the documents for a given term
-  public void get(String term) {
+  public String get(String term) {
     String cleanTerm = termCleaner(term);
     int i = findEntry(cleanTerm);
     if (i == -1) {
-      System.out.println("Term was not found");
-      return;
+      String o = "Term was not found\n";
+      System.out.println(o);
+      return o;
     }
     Entry e = entries[i];
     Record[] records = e.documents;
-
+    String output = "\n";
     for (Record r : records) {
       r.printRecord();
+      output = output + r.getRecordLog() + "\n";
     }
-    return;
+    System.out.println();
+    return output;
+  }
+
+  public void printInvertedIndex() {
+    for (Entry e: entries) {
+      for (Record r : e.documents) {
+        System.out.printf("%s: %s\n", e.term, r.cgndbId);
+      }
+    }
   }
 
   public static void main(String[] args) {
@@ -159,6 +170,8 @@ public class InvertedIndex {
     Record e6 = new Record("TRALALA,Coopers Head,Head,47.338722,-53.90362,Newfoundland and Labrador");;
     inv.put("Coopers of Head", e6);
     inv.get("Coopers Head");
+
+    inv.printInvertedIndex();
   }
 
 }

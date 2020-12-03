@@ -77,23 +77,23 @@ public class Query {
   // print the info of a query
   public void printQuery() {
     if (this.cgndbId != null) {
-      System.out.printf("CGNDBID(s): %s \n", this.cgndbId);
+      System.out.printf(">>> CGNDBID(s): %s \n", this.cgndbId);
     }
 
     if (this.geographicName != null) {
-      System.out.printf("Geographic Name(s): %s \n", this.geographicName);
+      System.out.printf(">>> Geographic Name(s): %s \n", this.geographicName);
     }
 
     if (this.genericTerm != null) {
-      System.out.printf("Generic Term(s): %s \n", this.genericTerm);
+      System.out.printf(">>> Generic Term(s): %s \n", this.genericTerm);
     }
 
     if (this.latitude != null & this.longitude != null) {
-      System.out.printf("Latitude(s) & Longitude(s): [%s, %s]\n", this.latitude, this.longitude);
+      System.out.printf(">>> Latitude(s) & Longitude(s): [%s, %s]\n", this.latitude, this.longitude);
     }
 
     if (this.location != null) {
-      System.out.printf("Location(s): %s \n\n", this.location);
+      System.out.printf(">>> Location(s): %s \n\n", this.location);
     }
   }
 

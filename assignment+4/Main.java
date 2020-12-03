@@ -65,21 +65,31 @@ public class Main {
     return q;
   }
 
+  // writes the results to the output file
+  public static void writeResults(ArrayList<String> queries, ArrayList<String> results, String output) throws IOException {
+    FileWriter writer = new FileWriter(output);
+    for(int i=0; i<results.size(); i++) {
+      String row = queries.get(i) + ":\n" + results.get(i) + "\n";
+      writer.write(row + System.lineSeparator());
+    }
+    writer.close();
+  }
+
   public static void main(String[] args) throws IOException {
     System.out.println("\nREADING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
     System.out.println("===========================\n");
     // read the file names
-    String record_file = args[0];
-    String query_file = args[1];
-    String output_file = args[2];
+    String record = args[0];
+    String query = args[1];
+    String output = args[2];
 
     // display some info about the chosen file
-    int lineCount = lineCounter(record_file);
+    int lineCount = lineCounter(record);
     System.out.printf("Total records: %s \n\n", lineCount);
 
     Record[] csv = new Record[lineCount];
     try {
-      csv = readCSV(record_file, lineCount);
+      csv = readCSV(record, lineCount);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }
@@ -127,51 +137,51 @@ public class Main {
 
     // execute queries
     System.out.println("\nREADING QUERIES AND SAVING RESULTS TO LOG FILE...");
-    System.out.println("===========================");
+    System.out.println("===========================\n");
     Query q = new Query();
 
     try {
-      q = readQueries(query_file);
+      q = readQueries(query);
     } catch(FileNotFoundException e) {
       System.out.println("File was not found.");
     }
 
-    ArrayList<String> log = new ArrayList<String>();
+    ArrayList<String> results = new ArrayList<String>();
+    ArrayList<String> queries = new ArrayList<String>();
 
     // Perform the searches
     if (q.cgndbId != null) {
       for(String id : q.cgndbId) {
-        System.out.printf("Querying %s: \n", id);
         String result = bs.search(id);
-        log.add(result);
+        results.add(result);
+        queries.add(id);
       }
     }
 
     if (q.geographicName != null) {
       for(String n : q.geographicName) {
-        System.out.printf("Querying %s: \n", n);
         String result = inv.get(n);
-        log.add(result);
+        results.add(result);
+        queries.add(n);
       }
     }
 
     if (q.genericTerm != null) {
       for(String g : q.genericTerm) {
-        System.out.printf("Querying %s: \n", g);
-        String result = inv2.get(g);;
-        log.add(result);
+        String result = inv2.get(g);
+        results.add(result);
+        queries.add(g);
       }
     }
 
     if (q.location != null) {
       for(String l : q.location) {
-        System.out.printf("Querying %s: \n", l);
         String result = inv3.get(l);
-        log.add(result);
+        results.add(result);
+        queries.add(l);
         }
       }
 
-    System.out.println(log.toString());
-
-    }
+    writeResults(queries, results, output);
+  }
 }

@@ -121,18 +121,15 @@ public class InvertedIndex {
     String cleanTerm = termCleaner(term);
     int i = findEntry(cleanTerm);
     if (i == -1) {
-      String o = "Term was not found\n";
-      System.out.println(o);
+      String o = "Term was not found";
       return o;
     }
     Entry e = entries[i];
     Record[] records = e.documents;
-    String output = "\n";
+    String output = "";
     for (Record r : records) {
-      r.printRecord();
       output = output + r.getRecordLog() + "\n";
     }
-    System.out.println();
     return output;
   }
 

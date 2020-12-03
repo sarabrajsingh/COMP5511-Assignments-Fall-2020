@@ -97,13 +97,10 @@ public class BinarySearchTree {
       Node n = iterativeSearch(key);
       // Node n = recursiveSearch(this.root, key);
       Record r = n.value;
-      r.printRecord();
-      System.out.println();
       String l = r.getRecordLog();
       return l;
     } catch(NullPointerException e) {
-      String o = "Record was not found\n";
-      System.out.println(o);
+      String o = "Record was not found";
       return o;
     }
   }
@@ -160,12 +157,12 @@ public class BinarySearchTree {
   }
 
   // balances a given BST
-  public Node balanceTree() {
+  public Node balanceTree(Node root) {
     // store nodes of given BST in sorted order
     ArrayList<Node> nodes = new ArrayList<>();
-    nodesList(this.root, nodes);
+    nodesList(root, nodes);
 
-    /* constucts a balanced BST from the nodes list by getting
+    /* constructs a balanced BST from the nodes list by getting
     the middle of the array, setting it as root, and recursively
     doing the same for all left and right trees */
     int n = nodes.size();
@@ -196,7 +193,7 @@ public class BinarySearchTree {
     int h0 = bs.height(bs.root);
     System.out.println(h0);
 
-    bs.balanceTree(bs.root);
+    bs.root = bs.balanceTree(bs.root);
 
     int h1 = bs.height(bs.root);
     System.out.println(h1);

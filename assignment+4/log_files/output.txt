@@ -1,0 +1,37 @@
+IAUCC:
+Record was not found
+
+KAHRO:
+Record was not found
+
+KAFQX:
+Record was not found
+
+FDVKW:
+|| CGNDBID: FDVKW ---> Geographic Name: Monaghan Lake | Generic Term: Lake | Latitude: 49.795914 | Longitude: -79.71903 | Location: Cochrane ||
+
+FBWII:
+|| CGNDBID: FBWII ---> Geographic Name: La Renouche | Generic Term: Dispersed Rural Community | Latitude: 45.546112 | Longitude: -74.486115 | Location: Prescott ||
+
+Abbottsfield:
+Term was not found
+
+Esker Creek:
+|| CGNDBID: FBCXC ---> Geographic Name: Esker Creek | Generic Term: Creek | Latitude: 48.12905 | Longitude: -80.997925 | Location: Timiskaming ||
+
+
+Safety Pin Bend:
+Term was not found
+
+Oak Point:
+|| CGNDBID: FCGKM ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 46.13821 | Longitude: -82.28358 | Location: Algoma ||
+|| CGNDBID: FCGKK ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.2359 | Longitude: -76.33486 | Location: Frontenac ||
+|| CGNDBID: FCGKL ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 49.546944 | Longitude: -94.679726 | Location: Kenora ||
+|| CGNDBID: FCGKP ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.29217 | Longitude: -77.98542 | Location: Northumberland ||
+|| CGNDBID: FCGKO ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.85684 | Longitude: -79.29059 | Location: Muskoka ||
+
+
+Zealand:
+|| CGNDBID: FIDTE ---> Geographic Name: Airport Road Conservation Reserve | Generic Term: Conservation Reserve | Latitude: 49.82636 | Longitude: -92.76316 | Location: Zealand ||
+
+

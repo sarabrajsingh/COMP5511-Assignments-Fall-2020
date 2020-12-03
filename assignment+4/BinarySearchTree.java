@@ -25,6 +25,7 @@ public class BinarySearchTree {
     this.root = null;
   }
 
+  // insert a record in the BST
   public void insert(String key, Record value) {
     // if root is null, set the node as root
     if (this.root == null) {
@@ -60,21 +61,8 @@ public class BinarySearchTree {
     }
   }
 
-  // conducts a search, recursively, within the BST
-  private Node recursiveSearch(Node n, String key) {
-      // base case: key is equal to search key
-      if (n.key==key) {
-          return n;
-      }
-      // key is less than root's key
-      if (key.compareTo(n.key) < 0) {
-        return recursiveSearch(n.left, key);
-      }
-      return recursiveSearch(n.right, key);
-  }
-
-  // conducts a search, iteratively, within the BST
-  private Node iterativeSearch(String key) {
+  // search a given id in the BST
+  public String search(String key) {
     Node n = this.root;
     // traverse until we reach a dead end
     while (n != null) {
@@ -84,25 +72,13 @@ public class BinarySearchTree {
         n = n.right;
       // if found, return n
       } else if (key.compareTo(n.key) == 0) {
-        return n;
+        Record r = n.value;
+        String l = r.getRecordLog();
+        return l;
       }
     }
-    return null;
-  }
-
-  // search method exposed to users
-  public String search(String key) {
-    try {
-      // Can use iterative or recursive search methods here
-      Node n = iterativeSearch(key);
-      // Node n = recursiveSearch(this.root, key);
-      Record r = n.value;
-      String l = r.getRecordLog();
-      return l;
-    } catch(NullPointerException e) {
-      String o = "Record was not found";
-      return o;
-    }
+    String o = "Record was not found";
+    return o;
   }
 
   // prints the elements of the BST

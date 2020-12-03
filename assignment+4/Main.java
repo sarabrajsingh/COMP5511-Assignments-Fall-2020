@@ -142,6 +142,7 @@ public class Main {
     }
 
     // create a B Tree for Lat/Long Lookup
+    System.out.println(">>> Creating a B+ Tree for Latitude and Longitude look up");
 
     // execute queries
     System.out.println("\nREADING QUERIES AND SAVING RESULTS TO LOG FILE...");

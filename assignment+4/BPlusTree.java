@@ -21,56 +21,87 @@ public class BPlusTree {
       this.maxKeys = order - 1;
       this.minKeys = (int) Math.ceil(order/2.0) - 1;
     }
+
+    // check if a node is full
+    private boolean isFull() {
+      if(this.keys.size() < this.maxKeys) {
+        return false;
+      } else {
+        return true;
+      }
+    }
   }
 
   /* Represents internal nodes in the B+ Tree. Internal nodes dont store pointers to the
   actual Record objects. They point to children nodes. */
   private static class InternalNode extends Node {
     private ArrayList<Node> children;
+    private InternalNode parent;
     private int maxChildren;
     private int minChildren;
 
-    private InternalNode(Float[] keys) {
+    // constructor for an empty Internal Node
+    private InternalNode() {
       this.maxChildren = order;
       this.minChildren = (int) Math.ceil(order/2.0);
       this.keys = new ArrayList<>();
       this.children = new ArrayList<>();
+      this.parent = null;
     }
+
+    // constructor for an Internal Node with one key
+    private InternalNode(Float key) {
+      this.maxChildren = order;
+      this.minChildren = (int) Math.ceil(order/2.0);
+      this.keys = new ArrayList<>();
+      keys.add(key);
+      this.children = new ArrayList<>();
+      this.parent = null;
+    }
+
+    // constructor for an Internal Node with multiple keys
+    private InternalNode(ArrayList<Float> keys) {
+      this.maxChildren = order;
+      this.minChildren = (int) Math.ceil(order/2.0);
+      this.keys = keys;
+      this.children = new ArrayList<>();
+      this.parent = null;
+    }
+
+    // insert key in the appropriate position in the internal node
+    private void insert(Float key) {
+      // if the node is not empty, find where to insert it
+      if (!keys.isEmpty()) {
+        // add new key if it doesnt exist in the node already
+        if (!keys.contains(key)) {
+          // add key
+          keys.add(key);
+          // sort keys
+          Collections.sort(keys);
+        // if key exists in the node already, do nothing
+        } else {
+          return;
+        }
+      // if the node is empty, insert key in first position
+      } else {
+        this.keys.add(key);
+      }
+  	}
   }
 
   /* Represents leaf nodes in the B+ Tree. These store pointers to Records
   and to their sibling leaf nodes. */
   private static class LeafNode extends Node {
 
-    // Stores an array of records that corresponds to a single key
-    private class LeafNodeEntry {
-      private ArrayList<Record> records;
-
-      // constructor of a LeafNodeEntry
-      private LeafNodeEntry(Record r) {
-        this.records = new ArrayList<>();
-        this.records.add(r);
-      }
-
-      // insert a record to an entry
-      private void insert(Record r) {
-        this.records.add(r);
-      }
-
-      private void printLeafNodeEntry() {
-        for (Record r : records) {
-          r.printRecord();
-        }
-      }
-    }
-
     private ArrayList<LeafNodeEntry> values;
     private LeafNode next;
+    private InternalNode parent;
 
     // constructor for an empty leaf
     private LeafNode() {
       this.keys = new ArrayList<>();
       this.values = new ArrayList<>();
+      this.parent = null;
     }
 
     // constructor for a new leaf with one record
@@ -80,6 +111,14 @@ public class BPlusTree {
       this.values = new ArrayList<>();
       LeafNodeEntry l = new LeafNodeEntry(record);
       this.values.add(l);
+      this.parent = null;
+    }
+
+    // constructor for a new leaf with multiple records
+    private LeafNode(ArrayList<Float> keys, ArrayList<LeafNodeEntry> values) {
+      this.keys = keys;
+      this.values = values;
+      this.parent = null;
     }
 
     // insert key and record in the appropriate position in the leaf node
@@ -123,15 +162,6 @@ public class BPlusTree {
       }
   	}
 
-    // check if a leaf is full
-    private boolean isFull() {
-      if(this.keys.size() < this.maxKeys) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-
     // print the contents of a given leaf
     private void printLeaf() {
       for (int i=0; i<this.keys.size(); i++) {
@@ -141,18 +171,100 @@ public class BPlusTree {
     }
   }
 
+  /* Stores an array of records that corresponds to a single key
+  and value or values */
+  private static class LeafNodeEntry {
+    private ArrayList<Record> records;
+
+    // constructor of a LeafNodeEntry
+    private LeafNodeEntry(Record r) {
+      this.records = new ArrayList<>();
+      this.records.add(r);
+    }
+
+    // insert a record to an entry
+    private void insert(Record r) {
+      this.records.add(r);
+    }
+
+    private void printLeafNodeEntry() {
+      for (Record r : records) {
+        r.printRecord();
+      }
+    }
+  }
+
   public LeafNode findLeaf(Float key) {
     Node n = this.root;
-    // if root is leaf
+    // if root is leaf, return leaf
     if (n instanceof LeafNode) {
-      return this.root;
+      return (LeafNode) this.root;
     /* if root is an internal node, traverse its children
     one by one until we reach the right leaf */
     } else {
       while (n instanceof InternalNode) {
         for (Node child : n.children) {
-          max = Collections.max(child.keys);
-          if (key < max) 
+          Float max = Collections.max(child.keys);
+          if (key > max) {
+            continue;
+          } else {
+            n = child;
+          }
+        }
+      }
+      return (LeafNode) n;
+    }
+  }
+
+  // splits a given Node from the midpoint
+  public Node split(Node n) {
+    int mid = (int) Math.ceil((this.order - 1) / 2.0);
+    if (n instanceof LeafNode) {
+      LeafNode l = (LeafNode) l;
+      // separate the first half of the leaf node
+      ArrayList<Float> firstHalfKeys = new ArrayList<Float>(l.keys.subList(0, mid-1));
+      ArrayList<LeafNodeEntry> firstHalfValues = new ArrayList<LeafNodeEntry>(l.values.subList(0, mid-1));
+      LeafNode p0 = new LeafNode(firstHalfKeys, firstHalfValues);
+      // separate the second half of the lead node
+      ArrayList<Float> secondHalfKeys = new ArrayList<Float>(n.keys.subList(mid, l.keys.size()-1));
+      ArrayList<LeafNodeEntry> secondHalfValues = new ArrayList<LeafNodeEntry>(l.values.subList(mid, n.keys.size()-1));
+      LeafNode p1 = new LeafNode(firstHalfKeys, firstHalfValues);
+      // create an internal node from the mid point if n doesnt have a parent
+      if (l.parent == null) {
+        InternalNode p3 = new InternalNode(l.keys.get(mid));
+        p3.children.add(p0);
+        p3.children.add(p1);
+        p0.parent = p3;
+        p1.parent = p3;
+      // if n has a parent already, check if it has space. if not, split it too
+      } else {
+        if (!l.parent.isFull()) {
+          l.parent.insert(l.keys.get(mid));
+        // if the parent doesnt have space, recursively call the function again
+        } else {
+          split(l.parent);
+        }
+      }
+    // if n is an Internal Node
+    } else {
+      // if no parent, create a new parent and assign the new nodes as its children
+      if (n.parent == null) {
+        ArrayList<Float> firstHalfKeys = new ArrayList<Float>(n.keys.subList(0, mid-1));
+        ArrayList<Float> secondHalfKeys = new ArrayList<Float>(n.keys.subList(mid-1, n.keys.size()-1));
+        InternalNode p4 = new InternalNode(n.keys.get(mid));
+        InternalNode p5 = new InternalNode(firstHalfKeys);
+        InternalNode p6 = new InternalNode(secondHalfKeys);
+        p4.children.add(p5);
+        p4.children.add(p6);
+        p5.parent = p4;
+        p6.parent = p4;
+      // if there is already a parent, see if it has space
+      } else {
+        if (!n.parent.isFull()) {
+          n.parent.insert(mid);
+        // if the parent doesnt have space, recursively call the function again
+        } else {
+          split(n.parent);
         }
       }
     }

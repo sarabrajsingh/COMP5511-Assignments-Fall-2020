@@ -109,7 +109,7 @@ public class Main {
     System.out.println(">>> Creating a Binary Search Tree for ID look up");
     BinarySearchTree bs = new BinarySearchTree();
     for (Record r : csv) {
-      bs.insert(r.cgndbId, r);
+      bs.insert(r);
     }
 
     System.out.println(">>> Balancing the Binary Search Tree");

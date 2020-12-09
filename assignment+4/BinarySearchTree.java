@@ -26,7 +26,8 @@ public class BinarySearchTree {
   }
 
   // insert a record in the BST
-  public void insert(String key, Record value) {
+  public void insert(Record value) {
+    String key  = value.cgndbId;
     // if root is null, set the node as root
     if (this.root == null) {
       this.root = new Node(key, value);
@@ -156,11 +157,11 @@ public class BinarySearchTree {
     Record e4 = new Record("FBUEQ,Keswil Creek,Creek,46.092213,-78.97416,Ontario");
     Record e5 = new Record("ABWNT,Coopers Head,Head,47.338722,-53.90362,Newfoundland and Labrador");
 
-    bs.insert("EJEIZ", e1);
-    bs.insert("EFOWB", e2);
-    bs.insert("FDLAP", e3);
-    bs.insert("FBUEQ", e4);
-    bs.insert("ABWNT", e5);
+    bs.insert(e1);
+    bs.insert(e2);
+    bs.insert(e3);
+    bs.insert(e4);
+    bs.insert(e5);
 
     bs.preOrderTraversal(bs.root);
     System.out.println();

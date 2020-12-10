@@ -19,6 +19,7 @@ It is important to note that the data file provided to the program needs to cont
 * `InvertedIndex.java`: An Inverted Index implementation mapping string-type features - terms - found in geographic locations to their corresponding geographic location record(s). If a single term is associated to multiple records, it is mapped to an array of records, so that there is no duplication of terms. Able to perform insert, search and stop word clean-up. It is used for Geographic Name, Location and Generic Term searches.
 * `data/*`: Contains example data files.
 * `log_files/*`: Contains example query and output files.
+* `compile.sh`: A quick bash scripts that compiles each of the classes used in Main.java.
 
 # Queries
 

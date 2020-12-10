@@ -12,11 +12,11 @@ It is important to note that the data file provided to the program needs to cont
 # Directory
 
 * `Main.java`: Reads the data and query files, builds the in-memory data structures and performs the searches. 
-* `Record.java`: The class that represents a single geographic location. When main.java reads a data file, it creates an Array of Record objects. 
+* `Record.java`: The class that represents geographic locations. When main.java reads a data file, it creates an Array of Record objects. 
 * `Query.java`: The class that represents the queries given by the user. Each feature that can be searched is represented by an array of objects so that users can conduct any number of queries.
 * `BinarySearchTree.java`: A Binary Search Tree implementation that can perform insert, search, pre order traversal and height balancing. Used for CGNDB ID, Latitude and Longitude searches. 
 * `BplusTree.java`: An attempt at a B+ Tree implementation. Incomplete and not actually used in Main.java. Included here to demonstrate the work that was done. 
-* `InvertedIndex.java`: An Inverted Index implementation mapping string-type features ("terms") found in geographic locations to their corresponding geographic location record(s). If a single term is associated to multiple records, it is mapped to an array of records, so that there is no duplication of terms. Able to perform insert, search and stop word clean-up. It is used for Geographic Name, Location and Generic Term searches.
+* `InvertedIndex.java`: An Inverted Index implementation mapping string-type features - terms - found in geographic locations to their corresponding geographic location record(s). If a single term is associated to multiple records, it is mapped to an array of records, so that there is no duplication of terms. Able to perform insert, search and stop word clean-up. It is used for Geographic Name, Location and Generic Term searches.
 * `data/*`: Contains example data files.
 * `log_files/*`: Contains example query and output files.
 

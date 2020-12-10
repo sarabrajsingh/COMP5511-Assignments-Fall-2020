@@ -37,3 +37,11 @@ Zealand:
 || CGNDBID: FIDTE ---> Geographic Name: Airport Road Conservation Reserve | Generic Term: Conservation Reserve | Latitude: 49.82636 | Longitude: -92.76316 | Location: Zealand ||
 
 
+41.966667, -82.51667:
+|| CGNDBID: FEZVK ---> Geographic Name: Parc national du Canada de la Pointe-Pelée | Generic Term: National Park | Latitude: 41.966667 | Longitude: -82.51667 | Location: Essex ||
+|| CGNDBID: FEZVJ ---> Geographic Name: Point Pelee National Park of Canada | Generic Term: National Park | Latitude: 41.966667 | Longitude: -82.51667 | Location: Essex ||
+
+
+47.82957, -91.814186:
+Record was not found
+

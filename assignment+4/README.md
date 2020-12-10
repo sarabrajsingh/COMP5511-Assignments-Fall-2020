@@ -19,11 +19,11 @@ It is important to note that the data file provided to the program needs to cont
 * `InvertedIndex.java`: An Inverted Index implementation mapping string-type features - terms - found in geographic locations to their corresponding geographic location record(s). If a single term is associated to multiple records, it is mapped to an array of records, so that there is no duplication of terms. Able to perform insert, search and stop word clean-up. It is used for Geographic Name, Location and Generic Term searches.
 * `data/*`: Contains example data files.
 * `log_files/*`: Contains example query and output files.
-* `compile.sh`: A quick bash scripts that compiles each of the classes used in Main.java.
+* `compile.sh`: A bash script that compiles the classes used in Main.java.
 
 # Queries
 
-The query file needs to follow the structure below. The query file can accept any number of inputs for each geographic feature, separated by a comma. If a given feature is not to be queried, users need to enter "None" in that field, as shown below for generic term. Latitude and Longitudes are paired based on their index in the query file. In the below example, because 41.9666670 and -82.5166670 are both at index 0 and 47.82957 and -91.814186 are both at index 1, the program knows that they are to be paired together in that fashion for the coordinate search. The number of latitudes inputted by the user must match the number of longitudes inputted. 
+The query file needs to follow the structure below. The query file can accept any number of inputs for each geographic feature, separated by a comma. If a given feature is not to be queried, users need to enter "None" in that field, as shown below for generic term. Latitude and Longitudes are paired based on their index in the query file. In the below example, because 41.9666670 and -82.5166670 are both at index 0 and 47.82957 and -91.814186 are both at index 1, the program knows that they are to be paired together in that fashion for the coordinate search. The number of latitudes entered by the user must match the number of longitudes. 
 
 ```
 CGNDBID: IAUCC, KAHRO, KAFQX, FDVKW, FBWII

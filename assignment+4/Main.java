@@ -252,15 +252,19 @@ public class Main {
       }
     }
 
-    if (q.latitude != null & q.longitude != null) {
-      for(int i=0; i<q.latitude.size(); i++) {
-        Float lat = q.latitude.get(i);
-        Float lon = q.longitude.get(i);
-        String result1 = bs2.search(lat);
-        String result2 = bs3.search(lon);
-        String matches = findMatches(result1, result2);
-        results.add(matches);
-        queries.add(lat + ", " + lon);
+    /* if the number of latitude and longitudes provided to query are not
+    the same, the program will not execute search for latitude and longitude */
+    if (q.latitude != null && q.longitude != null) {
+      if (q.latitude.size() == q.longitude.size()) {
+        for(int i=0; i<q.latitude.size(); i++) {
+          Float lat = q.latitude.get(i);
+          Float lon = q.longitude.get(i);
+          String result1 = bs2.search(lat);
+          String result2 = bs3.search(lon);
+          String matches = findMatches(result1, result2);
+          results.add(matches);
+          queries.add(lat + ", " + lon);
+        }
       }
     }
 

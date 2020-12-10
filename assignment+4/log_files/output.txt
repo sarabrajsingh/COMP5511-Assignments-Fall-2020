@@ -10,8 +10,10 @@ Record was not found
 FDVKW:
 || CGNDBID: FDVKW ---> Geographic Name: Monaghan Lake | Generic Term: Lake | Latitude: 49.795914 | Longitude: -79.71903 | Location: Cochrane ||
 
+
 FBWII:
 || CGNDBID: FBWII ---> Geographic Name: La Renouche | Generic Term: Dispersed Rural Community | Latitude: 45.546112 | Longitude: -74.486115 | Location: Prescott ||
+
 
 Abbottsfield:
 Term was not found

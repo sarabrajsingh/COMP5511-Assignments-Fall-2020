@@ -1,20 +1,25 @@
 package assignment4;
 import java.util.*;
 
-public class BinarySearchTree {
+public class BinarySearchTree<T> {
 
-  private class Node {
-    private String key;
-    private Record value;
+  private class Node<T> {
+    private T key;
+    private ArrayList<Record> values;
     private Node left;
     private Node right;
 
     // constructor for Node object
-    private Node(String key, Record value) {
+    private Node(T key, Record value) {
       this.key = key;
-      this.value = value;
+      this.values = new ArrayList<>();
+      values.add(value);
       this.right = null;
       this.left = null;
+    }
+
+    private ArrayList<Record> getValues() {
+      return this.values;
     }
   }
 
@@ -25,57 +30,90 @@ public class BinarySearchTree {
     this.root = null;
   }
 
+  /* does a comparison based on the data type of T, returns 1 if
+  key1 is smaller than key2, 2 if key1 is greater than key2 and
+  0 if they are equal */
+  public static int compare(Object key1, Object key2) {
+    if (key1 instanceof String) {
+      String k1 = (String) key1;
+      String k2 = (String) key2;
+      int x = k1.compareTo(k2);
+      if (x < 0) {
+        return 1;
+      } else if (x > 0) {
+        return 2;
+      } else {
+        return 0;
+      }
+    } else {
+      Float k3 = (Float) key1;
+      Float k4 = (Float) key2;
+      if (k3 < k4) {
+        return 1;
+      } else if (k3 > k4) {
+        return 2;
+      } else {
+        return 0;
+      }
+    }
+  }
+
   // insert a record in the BST
-  public void insert(Record value) {
-    String key  = value.cgndbId;
+  @SuppressWarnings("unchecked")
+  public void insert(T key, Record r) {
     // if root is null, set the node as root
     if (this.root == null) {
-      this.root = new Node(key, value);
+      this.root = new Node<>(key, r);
       return;
     }
     Node current = this.root;
     while(true) {
       // look left
-      if (key.compareTo(current.key) < 0) {
+      if (compare(key, current.key) == 1) {
         // if left node is not null, set current to the left subtree
         if (current.left != null) {
           current = current.left;
         // if left node is null, insert new Node to the left of current
         } else {
-          current.left = new Node(key, value);
+          current.left = new Node<>(key, r);
           break;
         }
       // look right
-      } else if (key.compareTo(current.key) > 0) {
+      } else if (compare(key, current.key) == 2) {
         // if right node is not null, set current to the right subtree
         if (current.right != null) {
           current = current.right;
         // if right node is null, insert new Node to the right of current
         } else {
-          current.right = new Node(key, value);
+          current.right = new Node<>(key, r);
           break;
         }
       } else {
-        System.out.println("This key already exists");
+        current.values.add(r);
         break;
       }
     }
   }
 
   // search a given id in the BST
-  public String search(String key) {
+  @SuppressWarnings("unchecked")
+  public String search(T key) {
     Node n = this.root;
     // traverse until we reach a dead end
     while (n != null) {
-      if (key.compareTo(n.key) < 0) {
+      if (compare(key, n.key) == 1) {
         n = n.left;
-      } else if (key.compareTo(n.key) > 0) {
+      } else if (compare(key, n.key) == 2) {
         n = n.right;
       // if found, return n
-      } else if (key.compareTo(n.key) == 0) {
-        Record r = n.value;
-        String l = r.getRecordLog();
-        return l;
+    } else if (compare(key, n.key) == 0){
+        ArrayList<Record> records = n.getValues();
+        String ll = "";
+        for (Record r : records) {
+          String l = r.getRecordLog();
+          ll = ll + l + "\n";
+        }
+        return ll;
       }
     }
     String o = "Record was not found";
@@ -149,23 +187,34 @@ public class BinarySearchTree {
   public static void main(String[] args) {
     System.out.println("Succesfully created a Binary Search Tree.");
 
-    // code for testing
-    BinarySearchTree bs = new BinarySearchTree();
+    // unit tests
+    BinarySearchTree<String> bs = new BinarySearchTree<>();
+    // BinarySearchTree<Float> bs = new BinarySearchTree<>();
     Record e1 = new Record("EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec");
     Record e2 = new Record("EFOWB,Rapides Boisvert,Rapids,46.6175,-74.263336,Quebec");
     Record e3 = new Record("FDLAP,Mud Lake,Lake,48.161366,-79.93589,Ontario");
     Record e4 = new Record("FBUEQ,Keswil Creek,Creek,46.092213,-78.97416,Ontario");
     Record e5 = new Record("ABWNT,Coopers Head,Head,47.338722,-53.90362,Newfoundland and Labrador");
 
-    bs.insert(e1);
-    bs.insert(e2);
-    bs.insert(e3);
-    bs.insert(e4);
-    bs.insert(e5);
+    bs.insert("EJEIZ", e1);
+    bs.insert("EFOWB", e2);
+    bs.insert("FDLAP", e3);
+    bs.insert("FBUEQ", e4);
+    bs.insert("ABWNT", e5);
+    bs.insert("ABWNT", e4);
+
+    // bs.insert((float) 46.092213, e1);
+    // bs.insert((float) 48.161366, e2);
+    // bs.insert((float) 46.987778, e3);
+    // bs.insert((float) 46.6175, e4);
+    // bs.insert((float) 47.338722, e5);
+
+    // System.out.println(compare((float)48.161366, (float) 47.338722));
 
     bs.preOrderTraversal(bs.root);
     System.out.println();
-    bs.search("ABWNT");
+    System.out.println(bs.search("ABWNT"));
+    // System.out.println(bs.search((float) 48.161366));
 
     int h0 = bs.height(bs.root);
     System.out.println(h0);

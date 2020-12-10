@@ -1,6 +1,6 @@
-/* GOAL: Implement a system that indexes and provides search features for the GNIS file.
+/* A system that indexes and provides search features for the GNIS file.
 
-The system needs to build and maintain several in memory index data structures to support the following operations:
+The system supports the following operations:
 - Retreive records matching given geographic coordinates
 - Retrieve records matching given unique record ID
 - Retrieve records that fall within a given geographic region */
@@ -75,6 +75,47 @@ public class Main {
     writer.close();
   }
 
+  // find the common ids from the results of latitude and longitude searches
+  private static String findMatches(String latitudes, String longitudes) {
+    String[] latitudeArray = latitudes.split("\n");
+    String[] longitudeArray = longitudes.split("\n");
+    // extract the cgndb id from the search results for each record
+    ArrayList<String> latitudeIds = new ArrayList<>();
+    for (String lat : latitudeArray) {
+      String latId = lat.substring(12, 17);
+      latitudeIds.add(latId);
+    }
+    ArrayList<String> longitudeIds = new ArrayList<>();
+    for (String lon : longitudeArray) {
+      String longId = lon.substring(12, 17);
+      longitudeIds.add(longId);
+    }
+    // add the matching ids to the matches array
+    ArrayList<String> matches = new ArrayList<>();
+    for (int i=0; i<latitudeIds.size(); i++) {
+      for (int j=0; j<longitudeIds.size(); j++) {
+        String latId = latitudeIds.get(i);
+        String longId = longitudeIds.get(j);
+
+        if (latId.equals(longId)) {
+          matches.add(latitudeArray[i]);
+        }
+      }
+    }
+    /* combine the final matches into a string if there are any,
+    otherwise result a not found string */
+    String finalResult = "";
+    if (!matches.isEmpty()) {
+      for (String m: matches) {
+        finalResult = finalResult + m + "\n";
+      }
+      return finalResult;
+    } else {
+      String o = "Record was not found";
+      return o;
+    }
+  }
+
   public static void main(String[] args) throws IOException {
     System.out.println("\nREADING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
     System.out.println("===========================\n");
@@ -105,18 +146,18 @@ public class Main {
     System.out.println("\nBUILDING IN MEMORY DATA STRUCTURES...");
     System.out.println("===========================\n");
 
-    // create a balanced BST for ID look up
+    // create a balanced Binary Search Tree for ID look up
     System.out.println(">>> Creating a Binary Search Tree for ID look up");
-    BinarySearchTree bs = new BinarySearchTree();
+    BinarySearchTree<String> bs = new BinarySearchTree<>();
     for (Record r : csv) {
-      bs.insert(r);
+      bs.insert(r.cgndbId, r);
     }
 
     System.out.println(">>> Balancing the Binary Search Tree");
     int h0 = bs.height(bs.root);
     bs.root = bs.balanceTree(bs.root);
     int h1 = bs.height(bs.root);
-    System.out.printf(">>> BST height before and after balancing the BST: %s vs %s\n", h0, h1);
+    System.out.printf(">>> Height before and after balancing the BST: %s vs %s\n", h0, h1);
 
     System.out.println(">>> Creating Inverted Indices for Geographic Name, Location and Generic Term look up");
     // create an Inverted Index for Geographic Name Lookup
@@ -141,8 +182,28 @@ public class Main {
       }
     }
 
-    // create a B Tree for Lat/Long Lookup
-    System.out.println(">>> Creating a B+ Tree for Latitude and Longitude look up");
+    /* Create a BST for Lat and Long Lookup. We need to create a
+    separate Binary Search Tree for each.*/
+    System.out.println(">>> Creating Binary Search Trees for Latitude and Longitude look up");
+    BinarySearchTree<Float> bs2 = new BinarySearchTree<>();
+    for (Record r : csv) {
+      bs2.insert(r.latitude, r);
+    }
+
+    BinarySearchTree<Float> bs3 = new BinarySearchTree<>();
+    for (Record r : csv) {
+      bs3.insert(r.longitude, r);
+    }
+
+    System.out.println(">>> Balancing the Binary Search Trees");
+    int h2 = bs2.height(bs2.root);
+    bs2.root = bs2.balanceTree(bs2.root);
+    int h3 = bs2.height(bs2.root);
+    System.out.printf(">>> Height before and after balancing the Latitude BST: %s vs %s\n", h2, h3);
+    int h4 = bs3.height(bs3.root);
+    bs3.root = bs3.balanceTree(bs3.root);
+    int h5 = bs3.height(bs3.root);
+    System.out.printf(">>> Height before and after balancing the Longitude BST: %s vs %s\n", h4, h5);
 
     // execute queries
     System.out.println("\nREADING QUERIES AND SAVING RESULTS TO LOG FILE...");
@@ -188,8 +249,20 @@ public class Main {
         String result = inv3.get(l);
         results.add(result);
         queries.add(l);
-        }
       }
+    }
+
+    if (q.latitude != null & q.longitude != null) {
+      for(int i=0; i<q.latitude.size(); i++) {
+        Float lat = q.latitude.get(i);
+        Float lon = q.longitude.get(i);
+        String result1 = bs2.search(lat);
+        String result2 = bs3.search(lon);
+        String matches = findMatches(result1, result2);
+        results.add(matches);
+        queries.add(lat + ", " + lon);
+      }
+    }
 
     writeResults(queries, results, output);
   }

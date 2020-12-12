@@ -1,26 +1,50 @@
 // a custom class that represents a given query
-package assignment4;
+
 import java.util.*;
 
 public class Query {
-  public ArrayList<String> cgndbId = new ArrayList<>();
-  public ArrayList<String> geographicName = new ArrayList<>();
-  public ArrayList<String> genericTerm = new ArrayList<>();
-  public ArrayList<Float> latitude = new ArrayList<>();
-  public ArrayList<Float> longitude = new ArrayList<>();
-  public ArrayList<String> location = new ArrayList<>();
+  // data members
+  private ArrayList<String> cgndbId;
+  private ArrayList<String> geographicName;
+  private ArrayList<String> genericTerm;
+  private ArrayList<Double> latitude;
+  private ArrayList<Double> longitude;
+  private ArrayList<String> location;
 
-  // constructor an empty Query object, for declaration
-  public Query() {
-    this.cgndbId = null;
-    this.genericTerm = null;
-    this.latitude = null;
-    this.longitude = null;
-    this.location = null;
+  // getters
+  public ArrayList<String> getCgndbId() {
+    return this.cgndbId;
   }
 
-  // constructor for Query object
+  public ArrayList<String> getGeographicName() {
+    return this.geographicName;
+  }
+
+  public ArrayList<String> getGenericTerm() {
+    return this.genericTerm;
+  }
+
+  public ArrayList<Double> getLatitude() {
+    return this.latitude;
+  }
+
+  public ArrayList<Double> getLongitude() {
+    return this.longitude;
+  }
+
+  public ArrayList<String> getLocation() {
+    return this.location;
+  }
+
+   // constructor for Query object
   public Query(String[] query) {
+
+    this.cgndbId = new ArrayList<String>();
+    this.geographicName = new ArrayList<String>();
+    this.genericTerm = new ArrayList<String>();
+    this.latitude = new ArrayList<Double>();
+    this.longitude = new ArrayList<Double>();
+    this.location = new ArrayList<String>();
 
     for(String id : query[0].split(",")) {
       if (!id.trim().equals("None"))  {
@@ -30,9 +54,9 @@ public class Query {
       }
     }
 
-    for(String n : query[1].split(",")) {
-      if (!n.trim().equals("None"))  {
-        this.geographicName.add(n.trim());
+    for(String name : query[1].split(",")) {
+      if (!name.trim().equals("None"))  {
+        this.geographicName.add(name.trim());
       } else {
         this.geographicName = null;
       }
@@ -40,34 +64,31 @@ public class Query {
 
     for(String t : query[2].split(",")) {
       if (!t.trim().equals("None")) {
-        System.out.println(t.trim());
         this.genericTerm.add(t.trim());
       } else {
         this.genericTerm = null;
       }
     }
 
-    for(String f : query[3].split(",")) {
-      if (!f.trim().equals("None"))  {
-        Float l = Float.parseFloat(f.trim());
-        this.latitude.add(l);
+    for(String lat : query[3].split(",")) {
+      if (!lat.trim().equals("None"))  {
+        this.latitude.add(Double.parseDouble(lat));
       } else {
         this.latitude = null;
       }
     }
 
-    for(String f : query[4].split(",")) {
-      if (!f.trim().equals("None"))  {
-        Float l = Float.parseFloat(f.trim());
-        this.longitude.add(l);
+    for(String longi : query[4].split(",")) {
+      if (!longi.trim().equals("None"))  {
+        this.longitude.add(Double.parseDouble(longi));
       } else {
         this.longitude = null;
       }
     }
 
-    for(String l : query[5].split(",")) {
-      if (!l.trim().equals("None"))  {
-        this.location.add(l.trim());
+    for(String loc : query[5].split(",")) {
+      if (!loc.trim().equals("None"))  {
+        this.location.add(loc.trim());
       } else {
         this.location = null;
       }
@@ -75,27 +96,18 @@ public class Query {
   }
 
   // print the info of a query
-  public void printQuery() {
-    if (this.cgndbId != null) {
-      System.out.printf(">>> CGNDBID(s): %s \n", this.cgndbId);
-    }
-    if (this.geographicName != null) {
-      System.out.printf(">>> Geographic Name(s): %s \n", this.geographicName);
-    }
-    if (this.genericTerm != null) {
-      System.out.printf(">>> Generic Term(s): %s \n", this.genericTerm);
-    }
-    if (this.latitude != null & this.longitude != null) {
-      System.out.printf(">>> Latitude(s) & Longitude(s): [%s, %s]\n", this.latitude, this.longitude);
-    }
-    if (this.location != null) {
-      System.out.printf(">>> Location(s): %s \n\n", this.location);
-    }
+  @Override
+  public String toString() {
+    return String.format(
+      ">>> CGNDBID(s): %s \n>>> Geographic Name(s): %s \n>>> Generic Term(s): %s \n>>> Latitude(s) & Longitude(s): [%s, %s]\n>>> Location(s): %s \n\n",
+      this.cgndbId, this.geographicName, this.genericTerm, this.latitude, this.longitude, this.location
+    );
   }
 
   public static void main(String[] args) {
     // testing
     String[] example = {"IAUCC",  "Abbottsfield",  "None",  "54.7327778",  "-112.4972222",  "Quebec"};
-    Query q = new Query(example);
+    Query query = new Query(example);
+    System.out.println(query);
   }
 }

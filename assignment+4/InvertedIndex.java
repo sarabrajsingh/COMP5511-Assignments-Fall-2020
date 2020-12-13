@@ -124,32 +124,31 @@ public class InvertedIndex<T> {
     return sb.toString().trim();
   }
 
-  public static void main(String[] args) {
-    System.out.println("Succesfully created an Inverted Index.");
+  // public static void main(String[] args) {
+  //   System.out.println("Succesfully created an Inverted Index.");
 
-    // code for testing
-    InvertedIndex<String> inv = new InvertedIndex<String>();
-    Record e1 = new Record("EJEIZ", "Lac Lucie", "Lake", 46.987778, -75.38472, "Quebec", "Quebec");
-    Record e2 = new Record("EFOWB", "Rapides Boisvert", "Rapids", 46.6175, -74.263336, "Quebec", "Quebec");
-    Record e3 = new Record("FDLAP", "Mud Lake", "Lake", 48.161366, -79.93589, "Ontario", "Quebec");
-    Record e4 = new Record("FBUEQ", "Keswil Creek", "Creek", 46.092213, -78.97416, "Ontario", "Quebec");
-    Record e5 = new Record("ABWNT", "Coopers Head", "Head", 47.338722, -53.90362, "Newfoundland and Labrador", "Quebec");
-    Record e6 = new Record("TRALALA","Coopers Head","Head",47.338722,-53.90362,"Newfoundland and Labrador", "Quebec");
+  //   // code for testing
+  //   InvertedIndex<String> inv = new InvertedIndex<String>();
+  //   Record e1 = new Record("EJEIZ", "Lac Lucie", "Lake", 46.987778, -75.38472, "Quebec", "Quebec");
+  //   Record e2 = new Record("EFOWB", "Rapides Boisvert", "Rapids", 46.6175, -74.263336, "Quebec", "Quebec");
+  //   Record e3 = new Record("FDLAP", "Mud Lake", "Lake", 48.161366, -79.93589, "Ontario", "Quebec");
+  //   Record e4 = new Record("FBUEQ", "Keswil Creek", "Creek", 46.092213, -78.97416, "Ontario", "Quebec");
+  //   Record e5 = new Record("ABWNT", "Coopers Head", "Head", 47.338722, -53.90362, "Newfoundland and Labrador", "Quebec");
+  //   Record e6 = new Record("TRALALA","Coopers Head","Head",47.338722,-53.90362,"Newfoundland and Labrador", "Quebec");
 
-    inv.put("Lac Lucie", e1.getCgndbId());
-    inv.put("Rapides Boisvert", e2.getCgndbId());
-    inv.put("Mud Lake", e3.getCgndbId());
-    inv.put("Keswil Creek", e4.getCgndbId());
-    inv.put("Coopers Head", e5.getCgndbId());
-    inv.put("Coopers of Head", e6.getCgndbId());
+  //   inv.put("Lac Lucie", e1.getCgndbId());
+  //   inv.put("Rapides Boisvert", e2.getCgndbId());
+  //   inv.put("Mud Lake", e3.getCgndbId());
+  //   inv.put("Keswil Creek", e4.getCgndbId());
+  //   inv.put("Coopers Head", e5.getCgndbId());
+  //   inv.put("Coopers of Head", e6.getCgndbId());
 
-    // String get1 = inv.get("Lac Lucie");
-    // String get2 = inv.get("Rapides Boisvert");
-    // String get3 = inv.get("Mud Lake");
-    // String get4 = inv.get("Keswil Creek");
-    // String get5 = inv.get("Coopers Head");
-    // System.out.println(get1 + get2 + get3 + get4 + get5);
+  //   // String get1 = inv.get("Lac Lucie");
+  //   // String get2 = inv.get("Rapides Boisvert");
+  //   // String get3 = inv.get("Mud Lake");
+  //   // String get4 = inv.get("Keswil Creek");
+  //   // String get5 = inv.get("Coopers Head");
+  //   // System.out.println(get1 + get2 + get3 + get4 + get5);
 
-    System.out.println(inv);
-  }
+  //   System.out.println(inv);
 }

@@ -103,11 +103,10 @@ public class Query {
       this.cgndbId, this.geographicName, this.genericTerm, this.latitude, this.longitude, this.location
     );
   }
-
-  public static void main(String[] args) {
-    // testing
-    String[] example = {"IAUCC",  "Abbottsfield",  "None",  "54.7327778",  "-112.4972222",  "Quebec"};
-    Query query = new Query(example);
-    System.out.println(query);
-  }
+  // public static void main(String[] args) {
+  //   // testing
+  //   String[] example = {"IAUCC",  "Abbottsfield",  "None",  "54.7327778",  "-112.4972222",  "Quebec"};
+  //   Query query = new Query(example);
+  //   System.out.println(query);
+  // }
 }

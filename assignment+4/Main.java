@@ -12,9 +12,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+
 public class Main {
 
-  public static int NUM_RECORDS = 10000; // globally available # of records count
+  public static Integer NUM_RECORDS = null; // globally available # of records count
 
   // reads a given csv file line by line and returns an array of records
   public static ArrayList<Record> readCSV(String filename) {
@@ -27,7 +28,8 @@ public class Main {
       br.readLine(); // skip the first line, usually the header in CSV files
       while ((line = br.readLine()) != null) {
         // some logic to handle bad inputs from CSV, like "," in the geographicName
-        String[] input = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"); // -1 will account for missing location value
+        String[] input = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"); // use this regex to split the incoming line
+                                                                        // from the CSV file
         // build a record object based on CSV input
         String cgndbID = null;
         String geographicName = null;
@@ -37,9 +39,9 @@ public class Main {
         String location = null;
         String province = null;
 
-        for(int i = 0; i < input.length; i++){
-          try{
-            switch(i){
+        for (int i = 0; i < input.length; i++) {
+          try {
+            switch (i) {
               case 0:
                 cgndbID = input[0];
                 break;
@@ -60,7 +62,7 @@ public class Main {
               case 11:
                 province = input[11];
             }
-          } catch (NumberFormatException e){
+          } catch (NumberFormatException e) {
             continue;
           }
         }
@@ -126,7 +128,7 @@ public class Main {
     try {
       bw = new BufferedWriter(new FileWriter(filename));
       bw.append(sb);
-      System.out.println("successfully wrote results to [" + filename + "]");
+      System.out.println(">>> Successfully wrote results to [" + filename + "]");
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -144,11 +146,11 @@ public class Main {
     System.out.println("\nREADING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...");
     System.out.println("===========================\n");
     // read arguments from the command line
-    String record = "";
+    String csvFile = "";
     String query = "";
     String output = "";
     try {
-      record = args[0];
+      csvFile = args[0];
       query = args[1];
       output = args[2];
     } catch (ArrayIndexOutOfBoundsException e) {
@@ -157,7 +159,7 @@ public class Main {
     }
 
     // populate masterRecords arrayList with CSV contents
-    ArrayList<Record> masterRecords = readCSV(args[0]);
+    ArrayList<Record> masterRecords = readCSV(csvFile);
 
     System.out.println("\nBUILDING IN MEMORY DATA STRUCTURES...");
     System.out.println("===========================\n");
@@ -252,13 +254,13 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(id + ":").append(System.lineSeparator()).append("Record was not found")
                 .append(System.lineSeparator()).append(System.lineSeparator());
-            System.out.println("could not find " + id + ", moving onto next ID");
+            System.out.println(">>> Could not find " + id + ", moving onto next ID");
             continue;
           }
         }
       }
     } else {
-      System.out.println("CGNDBID not present in Query. Moving onto next Query object");
+      System.out.println(">>> CGNDBID not present in Query. Moving onto next Query object");
     }
 
     sb.append(System.lineSeparator());
@@ -279,12 +281,12 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(n + ":").append(System.lineSeparator()).append("Term was not found")
                 .append(System.lineSeparator()).append(System.lineSeparator());
-            System.out.println("could not find " + n + ", moving onto next Geographic Name");
+            System.out.println(">>> could not find " + n + ", moving onto next Geographic Name");
           }
         }
       }
     } else {
-      System.out.println("Geographic Name not present in Query. Moving onto next Query object");
+      System.out.println(">>> Geographic Name not present in Query. Moving onto next Query object");
     }
 
     sb.append(System.lineSeparator());
@@ -304,12 +306,12 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(g + ":").append(System.lineSeparator()).append("Term was not found")
                 .append(System.lineSeparator());
-            System.out.println("could not find " + g + ", moving onto next Generic Term");
+            System.out.println(">>> could not find " + g + ", moving onto next Generic Term");
           }
         }
       }
     } else {
-      System.out.println("Generc Terms not present in Query. Moving onto next Query object");
+      System.out.println(">>> Generic Terms not present in Query. Moving onto next Query object");
     }
 
     sb.append(System.lineSeparator());
@@ -328,12 +330,12 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(l + ":").append(System.lineSeparator()).append("Location was not found")
                 .append(System.lineSeparator());
-            System.out.println("could not find " + l + ", moving onto next Location");
+            System.out.println(">>> could not find " + l + ", moving onto next Location");
           }
         }
       }
     } else {
-      System.out.println("Locations not present in Query. Moving onto next Query object");
+      System.out.println(">>> Locations not present in Query. Moving onto next Query object");
     }
 
     sb.append(System.lineSeparator());
@@ -351,7 +353,7 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(lat + ":").append(System.lineSeparator()).append("Latitude was not found")
                 .append(System.lineSeparator());
-            System.out.println("could not find " + lat + ", moving onto next Latitude");
+            System.out.println(">>> could not find " + lat + ", moving onto next Latitude");
             continue;
           }
         }

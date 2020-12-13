@@ -26,7 +26,11 @@ public class InvertedIndex<T> {
 
   // constructor for the InvertedIndex object
   public InvertedIndex() {
-    this.entries = new ArrayList<Entry>(Main.NUM_RECORDS);
+    if(Main.NUM_RECORDS != null){
+      this.entries = new ArrayList<Entry>(Main.NUM_RECORDS);
+    } else {
+      this.entries = new ArrayList<Entry>();
+    }
   }
 
   public int getSize() {

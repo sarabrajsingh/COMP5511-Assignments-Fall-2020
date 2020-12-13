@@ -74,7 +74,6 @@ public class Record implements Comparable<Record> {
   public int compareTo(Record record) {
     // compareTo based on CGNDBIDs only (default)
     Integer returnValue = null;
-
     switch(Record.SORT_BY) {
       case "CGNDBID":
         returnValue = record.getCgndbId().compareTo(this.cgndbId);
@@ -86,7 +85,7 @@ public class Record implements Comparable<Record> {
         returnValue = record.getLongitude().compareTo(this.longitude);
         break;
     }
-    return returnValue.intValue();
+    return returnValue;
   }
 
   public static void main(String[] args) {

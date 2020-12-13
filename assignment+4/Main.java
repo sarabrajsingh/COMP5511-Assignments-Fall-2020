@@ -281,7 +281,7 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(n + ":").append(System.lineSeparator()).append("Term was not found")
                 .append(System.lineSeparator()).append(System.lineSeparator());
-            System.out.println(">>> could not find " + n + ", moving onto next Geographic Name");
+            System.out.println(">>> Could not find " + n + ", moving onto next Geographic Name");
           }
         }
       }
@@ -306,7 +306,7 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(g + ":").append(System.lineSeparator()).append("Term was not found")
                 .append(System.lineSeparator());
-            System.out.println(">>> could not find " + g + ", moving onto next Generic Term");
+            System.out.println(">>> Could not find " + g + ", moving onto next Generic Term");
           }
         }
       }
@@ -330,7 +330,7 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(l + ":").append(System.lineSeparator()).append("Location was not found")
                 .append(System.lineSeparator());
-            System.out.println(">>> could not find " + l + ", moving onto next Location");
+            System.out.println(">>> Could not find " + l + ", moving onto next Location");
           }
         }
       }
@@ -353,7 +353,7 @@ public class Main {
           } catch (NoSuchElementException e) {
             sb.append(lat + ":").append(System.lineSeparator()).append("Latitude was not found")
                 .append(System.lineSeparator());
-            System.out.println(">>> could not find " + lat + ", moving onto next Latitude");
+            System.out.println(">>> Could not find " + lat + ", moving onto next Latitude");
             continue;
           }
         }

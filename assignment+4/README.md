@@ -8,8 +8,8 @@ This program provides a variety of search functionalities for geographic locatio
 
 Please use the original CSV data files from `open.canada.ca` for this program - https://open.canada.ca/data/en/dataset/e27c6eba-3c5d-4051-9db2-082dc6411c2c. The CSV header must obey the following convention:
 <br/>
-&nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; |
------- | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| | | | | | | | | | | | | | | |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 | CGNDB ID | Geographical Name | Language | Syllabic Form | Generic Term | Generic Category | Concise Code | Toponmyic Feature ID | Latitude | Longitude | Location | Province-Territory | Relevance at Scale | Decision Date | Source |
 <br/>
 
@@ -111,8 +111,8 @@ READING QUERIES AND SAVING RESULTS TO LOG FILE...
 >>> Could not find KAHRO, moving onto next ID
 >>> Could not find KAFQX, moving onto next ID
 
->>> could not find Abbottsfield, moving onto next Geographic Name
->>> could not find Safety Pin Bend, moving onto next Geographic Name
+>>> Could not find Abbottsfield, moving onto next Geographic Name
+>>> Could not find Safety Pin Bend, moving onto next Geographic Name
 
 >>> Generic Terms not present in Query. Moving onto next Query object
 
@@ -164,8 +164,8 @@ Record was not found
 ```
 
 # Contributors
-&nbsp; | &nbsp; | &nbsp;
------- | ------ | ------
+| | |
+|-|-|
 | Dunya Oguz | 40181540 | https://github.com/dunyaoguz |
 | Hugo Joncour | 40139230 | https://github.com/SanteauX |
 | Sarabraj Singh | 29473858 | https://github.com/sarabrajsingh |

@@ -14,7 +14,7 @@ Please use the original CSV data files from `open.canada.ca` for this program - 
 ## Program Execution
 
 1. Run `bash compile.sh` in order to compile all the classes within the package.
-2. Run `java Main.java <path to data file> <path to query file> <path to output file>`. If you want to use the files already contained in this repository, you would run `data/cgn_on_csv_eng.csv log_files/queries.txt log_files/output.txt`. The query file needs to follow the structure outlined in the Queries section.
+2. Run `java Main.java <path to data file> <path to query file> <path to output file>`. If you want to use the files already contained in this repository, you would run `java Main.java data/cgn_on_csv_eng.csv log_files/queries.txt log_files/output.txt`. The query file needs to follow the structure outlined in the Queries section.
 
 #### Example Program Execution
 ```bash

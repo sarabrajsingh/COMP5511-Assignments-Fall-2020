@@ -1,60 +1,98 @@
 // a custom class that represents each unique record from the GNIS file
-package assignment4;
 
-public class Record {
-  public String cgndbId;
-  public String geographicName;
-  public String genericTerm;
-  public float latitude;
-  public float longitude;
-  public String location;
+public class Record implements Comparable<Record> {
+  private String cgndbId;
+  private String geographicName;
+  private String genericTerm;
+  private Double latitude;
+  private Double longitude;
+  private String location;
+  private String province;
 
-  // constructor for Record object
-  public Record(String l) {
-    // regex allows us to split only on commas that are outside quotes
-    String[] elements = l.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-    int size = elements.length;
+  public static String SORT_BY = "CGNDBID";
 
-    this.cgndbId = elements[0];
-    this.geographicName = elements[1];
-    this.genericTerm = elements[2];
-    this.latitude = Float.parseFloat(elements[3]);
-    this.longitude = Float.parseFloat(elements[4]);
-    this.location = null;
+  // default constructor for Record object
+  public Record(String cgndbId, String geographicName, String genericTerm, Double latitude, Double longitude,
+      String location, String province) {
+    this.cgndbId = cgndbId;
+    this.geographicName = geographicName;
+    this.genericTerm = genericTerm;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.location = location;
+    this.province = province;
+  }
 
-    // if there is a location, assign it to the class variable
-    if (size == 6) {
-      this.location = elements[5];
+  // constructor with only cgndbID
+  public Record(String cgndbId) {
+    this.cgndbId = cgndbId;
+  }
+
+  // constructor with only latitude
+  public Record(Double latitude) {
+    this.latitude = latitude;
+  }
+
+  public String getCgndbId() {
+    return this.cgndbId;
+  }
+
+  public String getGeographicName() {
+    return this.geographicName;
+  }
+
+  public String getGenericTerm() {
+    return this.genericTerm;
+  }
+
+  public Double getLatitude() {
+    return this.latitude;
+  }
+
+  public Double getLongitude() {
+    return this.longitude;
+  }
+
+  public String getLocation() {
+    return this.location;
+  }
+
+  public String getProvince() {
+    return this.province;
+  }
+
+  // toString() override for ease of readability
+  @Override
+  public String toString() {
+    return String.format(
+        "|| CGNDBID: %s ---> Geographic Name: %s | Generic Term: %s | Latitude: %s | Longitude: %s | Location: %s | Province: %s ||",
+        this.cgndbId, this.geographicName, this.genericTerm, this.latitude, this.longitude, this.location, this.province);
+  }
+
+  // comparable override based on CGNDBID
+  @Override
+  public int compareTo(Record record) {
+    // compareTo based on CGNDBIDs only (default)
+    Integer returnValue = null;
+    switch(Record.SORT_BY) {
+      case "CGNDBID":
+        returnValue = record.getCgndbId().compareTo(this.cgndbId);
+        break;
+      case "LATITUDE":
+        returnValue = record.getLatitude().compareTo(this.latitude);
+        break;
+      case "LONGITUDE":
+        returnValue = record.getLongitude().compareTo(this.longitude);
+        break;
     }
-  }
-
-  // print the info of a given record on console
-  public void printRecord() {
-    System.out.printf("|| CGNDBID: %s ---> ", this.cgndbId);
-    System.out.printf("Geographic Name: %s | ", this.geographicName);
-    System.out.printf("Generic Term: %s | ", this.genericTerm);
-    System.out.printf("Latitude: %s | ", this.latitude);
-    System.out.printf("Longitude: %s | ", this.longitude);
-    System.out.printf("Location: %s ||\n", this.location);
-  }
-
-  // return the entire record as a string
-  public String getRecordLog() {
-    String s0 = String.format("|| CGNDBID: %s ---> ", this.cgndbId);
-    String s1 = String.format("Geographic Name: %s | ", this.geographicName);
-    String s2 = String.format("Generic Term: %s | ", this.genericTerm);
-    String s3 = String.format("Latitude: %s | ", this.latitude);
-    String s4 = String.format("Longitude: %s | ", this.longitude);
-    String s5 = String.format("Location: %s ||", this.location);
-    return s0 + s1 + s2 + s3 + s4 + s5;
+    return returnValue;
   }
 
   public static void main(String[] args) {
     // testing
-    String example = "EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec";
-    Record r = new Record(example);
-    r.printRecord();
-    String logOutput = r.getRecordLog();
-    System.out.println(logOutput);
+    Record r1 = new Record("EJEIX", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
+    Record r2 = new Record("EJEIZ", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
+    Record r3 = new Record(45.987778);
+    Record r4 = new Record(45.469997);
   }
 }

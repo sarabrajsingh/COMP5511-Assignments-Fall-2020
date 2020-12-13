@@ -1,28 +1,22 @@
-package assignment4;
+
 import java.util.*;
 
-public class BinarySearchTree<T> {
+public class BinarySearchTree<T extends Comparable<T>> {
 
-  private class Node<T> {
-    private T key;
-    private ArrayList<Record> values;
+  private class Node {
+    private T record; // CGNDBID
     private Node left;
     private Node right;
 
     // constructor for Node object
-    private Node(T key, Record value) {
-      this.key = key;
-      this.values = new ArrayList<>();
-      values.add(value);
-      this.right = null;
+    public Node(T record) {
+      this.record = record;
       this.left = null;
-    }
-
-    private ArrayList<Record> getValues() {
-      return this.values;
+      this.right = null;
     }
   }
 
+  // keep track of the root of the BST
   public Node root;
 
   // constructor for BST object
@@ -30,100 +24,71 @@ public class BinarySearchTree<T> {
     this.root = null;
   }
 
-  /* does a comparison based on the data type of T, returns 1 if
-  key1 is smaller than key2, 2 if key1 is greater than key2 and
-  0 if they are equal */
-  public static int compare(Object key1, Object key2) {
-    if (key1 instanceof String) {
-      String k1 = (String) key1;
-      String k2 = (String) key2;
-      int x = k1.compareTo(k2);
-      if (x < 0) {
-        return 1;
-      } else if (x > 0) {
-        return 2;
-      } else {
-        return 0;
-      }
-    } else {
-      Float k3 = (Float) key1;
-      Float k4 = (Float) key2;
-      if (k3 < k4) {
-        return 1;
-      } else if (k3 > k4) {
-        return 2;
-      } else {
-        return 0;
-      }
+  // insertion wrapper function
+  public void insert(T incomingRecord) {
+    this.root = insertRecord(this.root, incomingRecord);
+  }
+  // insertion function implementation
+  private Node insertRecord(Node current, T incomingRecord) {
+    // if root is null, set the node as root
+    if (current == null) {
+      return new Node(incomingRecord);
     }
+    if(current.record.compareTo(incomingRecord) < 0) {
+      current.left = insertRecord(current.left, incomingRecord);
+    } else if (current.record.compareTo(incomingRecord) > 0) {
+      current.right = insertRecord(current.right, incomingRecord);
+    }
+    return current; 
   }
 
-  // insert a record in the BST
-  @SuppressWarnings("unchecked")
-  public void insert(T key, Record r) {
-    // if root is null, set the node as root
-    if (this.root == null) {
-      this.root = new Node<>(key, r);
-      return;
+  // search function wrapper
+  public T search(T searchRecord) {
+    T found = searchNode(this.root, searchRecord);
+    if(found == null){
+      throw new NoSuchElementException("record not found");
     }
-    Node current = this.root;
-    while(true) {
-      // look left
-      if (compare(key, current.key) == 1) {
-        // if left node is not null, set current to the left subtree
-        if (current.left != null) {
-          current = current.left;
-        // if left node is null, insert new Node to the left of current
-        } else {
-          current.left = new Node<>(key, r);
-          break;
-        }
-      // look right
-      } else if (compare(key, current.key) == 2) {
-        // if right node is not null, set current to the right subtree
-        if (current.right != null) {
-          current = current.right;
-        // if right node is null, insert new Node to the right of current
-        } else {
-          current.right = new Node<>(key, r);
-          break;
-        }
-      } else {
-        current.values.add(r);
+    return found;
+  }
+
+  // search function implementation
+  private T searchNode(Node current, T searchRecord) {
+
+    T found = null;
+    while(current != null){
+      if(current.record.compareTo(searchRecord) < 0){
+        current = current.left;
+      } else if (current.record.compareTo(searchRecord) > 0) {
+        current = current.right;
+      } else if (current.record.compareTo(searchRecord) == 0) {
+        found = current.record;
         break;
       }
     }
+
+    return found;
   }
 
-  // search a given id in the BST
-  @SuppressWarnings("unchecked")
-  public String search(T key) {
-    Node n = this.root;
-    // traverse until we reach a dead end
-    while (n != null) {
-      if (compare(key, n.key) == 1) {
-        n = n.left;
-      } else if (compare(key, n.key) == 2) {
-        n = n.right;
-      // if found, return n
-    } else if (compare(key, n.key) == 0){
-        ArrayList<Record> records = n.getValues();
-        String ll = "";
-        for (Record r : records) {
-          String l = r.getRecordLog();
-          ll = ll + l + "\n";
-        }
-        return ll;
-      }
+  // inorder traversal
+  public void inorder(){
+    inorderTraversal(this.root);
+  }
+
+  private void inorderTraversal(Node root){
+    if(root != null){
+      inorderTraversal(root.left);
+      System.out.println(root.record);
+      inorderTraversal(root.right);
     }
-    String o = "Record was not found";
-    return o;
   }
 
-  // prints the elements of the BST
-  public void preOrderTraversal(Node n) {
+  // preorder traversal - prints the elements of the BST 
+  public void preorderTraversal(){
+    preOrderTraversal(this.root);
+  }
+  private void preOrderTraversal(Node n) {
     if (n != null) {
-      System.out.print(n.key + " ");
+      System.out.print(n.record);
       preOrderTraversal(n.left);
       preOrderTraversal(n.right);
     }
@@ -142,9 +107,9 @@ public class BinarySearchTree<T> {
     } else {
       return r + 1;
     }
-   }
+  }
 
-   // creates an array of all the nodes in inorder
+  // creates an array of all the nodes in inorder
   private void nodesList(Node root, ArrayList<Node> nodes) {
     // base case: tree is empty
     if (root == null) {
@@ -164,10 +129,11 @@ public class BinarySearchTree<T> {
     // get the middle element and make it root
     int mid = (start + end) / 2;
     Node node = nodes.get(mid);
-    /* using index in Inorder traversal, construct
-    left and right subtrees */
-    node.left = balanceTreeUtil(nodes, start, mid-1);
-    node.right = balanceTreeUtil(nodes, mid+1, end);
+    /*
+     * using index in Inorder traversal, construct left and right subtrees
+     */
+    node.left = balanceTreeUtil(nodes, start, mid - 1);
+    node.right = balanceTreeUtil(nodes, mid + 1, end);
     return node;
   }
 
@@ -177,52 +143,54 @@ public class BinarySearchTree<T> {
     ArrayList<Node> nodes = new ArrayList<>();
     nodesList(root, nodes);
 
-    /* constructs a balanced BST from the nodes list by getting
-    the middle of the array, setting it as root, and recursively
-    doing the same for all left and right trees */
+    /*
+     * constructs a balanced BST from the nodes list by getting the middle of the
+     * array, setting it as root, and recursively doing the same for all left and
+     * right trees
+     */
     int n = nodes.size();
-    return balanceTreeUtil(nodes, 0, n-1);
+    return balanceTreeUtil(nodes, 0, n - 1);
   }
 
-  public static void main(String[] args) {
-    System.out.println("Succesfully created a Binary Search Tree.");
+  // functional tests
+  // public static void main(String[] args) {
+  //   System.out.println("Succesfully created a Binary Search Tree.");
 
-    // unit tests
-    BinarySearchTree<String> bs = new BinarySearchTree<>();
-    // BinarySearchTree<Float> bs = new BinarySearchTree<>();
-    Record e1 = new Record("EJEIZ,Lac Lucie,Lake,46.987778,-75.38472,Quebec");
-    Record e2 = new Record("EFOWB,Rapides Boisvert,Rapids,46.6175,-74.263336,Quebec");
-    Record e3 = new Record("FDLAP,Mud Lake,Lake,48.161366,-79.93589,Ontario");
-    Record e4 = new Record("FBUEQ,Keswil Creek,Creek,46.092213,-78.97416,Ontario");
-    Record e5 = new Record("ABWNT,Coopers Head,Head,47.338722,-53.90362,Newfoundland and Labrador");
+  //   // unit tests
+  //   BinarySearchTree<Record> bs = new BinarySearchTree<>();
+  //   // BinarySearchTree<Float> bs = new BinarySearchTree<>();
+  //   Record e1 = new Record("EJEIZ","Lac Lucie","Lake",46.987778,-75.38472,"Quebec", "Quebec");
+  //   Record e2 = new Record("EFOWB","Rapides Boisvert","Rapids",46.6175,-74.263336,"Quebec", "Quebec");
+  //   Record e3 = new Record("FDLAP","Mud Lake","Lake",48.161366,-79.93589,"Ontario", "Quebec");
+  //   Record e4 = new Record("FBUEQ","Keswil Creek","Creek",46.092213,-78.97416,"Ontario", "Quebec");
+  //   Record e5 = new Record("ABWNT","Coopers Head","Head",47.338722,-53.90362,"Newfoundland and Labrador", "Quebec");
 
-    bs.insert("EJEIZ", e1);
-    bs.insert("EFOWB", e2);
-    bs.insert("FDLAP", e3);
-    bs.insert("FBUEQ", e4);
-    bs.insert("ABWNT", e5);
-    bs.insert("ABWNT", e4);
+  //   bs.insert(e1);
+  //   bs.insert(e2);
+  //   bs.insert(e3);
+  //   bs.insert(e4);
+  //   bs.insert(e5);
+  //   bs.insert(e4);
 
-    // bs.insert((float) 46.092213, e1);
-    // bs.insert((float) 48.161366, e2);
-    // bs.insert((float) 46.987778, e3);
-    // bs.insert((float) 46.6175, e4);
-    // bs.insert((float) 47.338722, e5);
+  //   // bs.insert( 46.092213, e1);
+  //   // bs.insert( 48.161366, e2);
+  //   // bs.insert( 46.987778, e3);
+  //   // bs.insert( 46.6175, e4);
+  //   // bs.insert( 47.338722, e5);
 
-    // System.out.println(compare((float)48.161366, (float) 47.338722));
+  //   // System.out.println(compare(48.161366,  47.338722));
 
-    bs.preOrderTraversal(bs.root);
-    System.out.println();
-    System.out.println(bs.search("ABWNT"));
-    // System.out.println(bs.search((float) 48.161366));
+  //   // bs.preOrderTraversal(bs.root);
+  //   // System.out.println();
+  //   System.out.println(bs.search(e5).getCgndbId());
+  //   // // System.out.println(bs.search( 48.161366));
 
-    int h0 = bs.height(bs.root);
-    System.out.println(h0);
+  //   int h0 = bs.height(bs.root);
+  //   System.out.println(h0);
 
-    bs.root = bs.balanceTree(bs.root);
+  //   bs.root = bs.balanceTree(bs.root);
 
-    int h1 = bs.height(bs.root);
-    System.out.println(h1);
-
-  }
+  //   int h1 = bs.height(bs.root);
+  //   System.out.println(h1);
+  // }
 }

@@ -2,8 +2,6 @@
 
 This program provides a variety of search functionalities for geographic locations obtained from datasets published on the Canada Geographic Names Information System. The program creates in-memory data structures in order to provide users the ability to query a given file, using a geographic location's id, latitude, longitude, name, generic term and location. Users can input any number of queries for any number of features. The matching results are presented in an output file. 
 
-# Quick Start
-
 ## CSV Data
 
 Please use the original CSV data files from `open.canada.ca` for this program - https://open.canada.ca/data/en/dataset/e27c6eba-3c5d-4051-9db2-082dc6411c2c. The CSV header must obey the following convention:
@@ -57,7 +55,7 @@ java Main data/cgn_qc_csv_eng.csv log_files/queries.txt log_files/output.txt
 
 The query file needs to follow the structure below. The query file can accept any number of inputs for each geographic feature, separated by a comma. If a given feature is not to be queried, users need to enter "None" in that field, as shown below for generic term. Latitude and Longitudes are paired based on their index in the query file. In the below example, because 41.9666670 and -82.5166670 are both at index 0 and 47.82957 and -91.814186 are both at index 1, the program knows that they are to be paired together in that fashion for the coordinate search. The number of latitudes entered by the user must match the number of longitudes. 
 
-```bash
+```
 CGNDBID: IAUCC, KAHRO, KAFQX, FDVKW, FBWII
 GEOGRAPHIC_NAME: Abbottsfield, Esker Creek, Safety Pin Bend, Oak Point
 GENERIC_TERM: None
@@ -71,6 +69,7 @@ LOCATION: Zealand
 This is a sample output created by the program.
 
 #### Stdout to Terminal
+
 ```bash
 READING FILE AND PRINTING SOME EXAMPLE RECORDS FOR DEMONSTRATION...
 ===========================
@@ -118,7 +117,7 @@ READING QUERIES AND SAVING RESULTS TO LOG FILE...
 ```
 
 #### Example of the Output File
-```bash
+
 IAUCC:
 Record was not found
 

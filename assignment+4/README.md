@@ -18,7 +18,7 @@ Please use the original CSV data files from `open.canada.ca` for this program - 
 
 #### Example Program Execution
 ```bash
-java Main.java data/cgn_qc_csv_eng.csv log_files/queries.txt log_files/output.txt
+bash compile.sh && java Main.java data/cgn_qc_csv_eng.csv log_files/queries.txt log_files/output.txt
 ```
 
 # Directory

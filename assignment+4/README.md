@@ -118,6 +118,7 @@ READING QUERIES AND SAVING RESULTS TO LOG FILE...
 
 #### Example of the Output File
 
+```
 IAUCC:
 Record was not found
 

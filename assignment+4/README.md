@@ -55,7 +55,7 @@ java Main data/cgn_qc_csv_eng.csv log_files/queries.txt log_files/output.txt
 
 The query file needs to follow the structure below. The query file can accept any number of inputs for each geographic feature, separated by a comma. If a given feature is not to be queried, users need to enter "None" in that field, as shown below for generic term. Latitude and Longitudes are paired based on their index in the query file. In the below example, because 41.9666670 and -82.5166670 are both at index 0 and 47.82957 and -91.814186 are both at index 1, the program knows that they are to be paired together in that fashion for the coordinate search. The number of latitudes entered by the user must match the number of longitudes. 
 
-```
+```bash
 CGNDBID: IAUCC, KAHRO, KAFQX, FDVKW, FBWII
 GEOGRAPHIC_NAME: Abbottsfield, Esker Creek, Safety Pin Bend, Oak Point
 GENERIC_TERM: None
@@ -118,7 +118,7 @@ READING QUERIES AND SAVING RESULTS TO LOG FILE...
 
 #### Example of the Output File
 
-```
+```bash
 IAUCC:
 Record was not found
 

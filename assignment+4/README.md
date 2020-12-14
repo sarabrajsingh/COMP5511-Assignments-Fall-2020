@@ -38,6 +38,7 @@ bash compile.sh && java Main.java data/cgn_qc_csv_eng.csv log_files/queries.txt 
 ├── Query.java
 ├── README.md
 └── Record.java
+└── THEORY_PART.pdf
 ```
 
 * `Main.java`: Reads the data and query files, builds the in-memory data structures and performs the searches. 
@@ -49,6 +50,7 @@ bash compile.sh && java Main.java data/cgn_qc_csv_eng.csv log_files/queries.txt 
 * `data/*`: Contains example data files.
 * `log_files/*`: Contains example query and output files.
 * `compile.sh`: A bash script that compiles the classes used in Main.java.
+* `THEORY_PART.pdf`: Answers to the theoretical part of Assignment 4.
 
 # Queries
 

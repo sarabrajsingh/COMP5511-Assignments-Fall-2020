@@ -6,9 +6,8 @@ This program provides a variety of search functionalities for geographic locatio
 
 Please use the original CSV data files from `open.canada.ca` for this program - https://open.canada.ca/data/en/dataset/e27c6eba-3c5d-4051-9db2-082dc6411c2c. The CSV header must obey the following convention:
 <br/>
-| | | | | | | | | | | | | | | |
-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 | CGNDB ID | Geographical Name | Language | Syllabic Form | Generic Term | Generic Category | Concise Code | Toponmyic Feature ID | Latitude | Longitude | Location | Province-Territory | Relevance at Scale | Decision Date | Source |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
 <br/>
 
 ## Program Execution
@@ -163,8 +162,8 @@ Record was not found
 ```
 
 # Contributors
-| | |
-|-|-|
+| Name | Student ID | Github |
+|-|-|-|
 | Dunya Oguz | 40181540 | https://github.com/dunyaoguz |
 | Hugo Joncour | 40139230 | https://github.com/SanteauX |
 | Sarabraj Singh | 29473858 | https://github.com/sarabrajsingh |

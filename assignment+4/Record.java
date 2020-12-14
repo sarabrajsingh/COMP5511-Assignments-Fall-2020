@@ -87,12 +87,11 @@ public class Record implements Comparable<Record> {
     }
     return returnValue;
   }
-
-  public static void main(String[] args) {
-    // testing
-    Record r1 = new Record("EJEIX", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
-    Record r2 = new Record("EJEIZ", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
-    Record r3 = new Record(45.987778);
-    Record r4 = new Record(45.469997);
-  }
+  // public static void main(String[] args) {
+  //   // testing
+  //   Record r1 = new Record("EJEIX", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
+  //   Record r2 = new Record("EJEIZ", "Lac Lucie", "Lake", 45.987778, -75.38472, "Quebec", "Quebec");
+  //   Record r3 = new Record(45.987778);
+  //   Record r4 = new Record(45.469997);
+  // }
 }

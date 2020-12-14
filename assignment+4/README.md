@@ -35,7 +35,6 @@ bash compile.sh && java Main.java data/cgn_qc_csv_eng.csv log_files/queries.txt 
 │   ├── output.txt
 │   └── queries.txt
 ├── Main.java
-├── out.log
 ├── Query.java
 ├── README.md
 └── Record.java

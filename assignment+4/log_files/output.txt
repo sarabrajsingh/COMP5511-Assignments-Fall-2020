@@ -8,32 +8,32 @@ KAFQX:
 Record was not found
 
 FDVKW:
-|| CGNDBID: FDVKW ---> Geographic Name: Monaghan Lake | Generic Term: Lake | Latitude: 49.795914 | Longitude: -79.71903 | Location: Cochrane ||
-
+|| CGNDBID: FDVKW ---> Geographic Name: Monaghan Lake | Generic Term: Lake | Latitude: 49.795913 | Longitude: -79.719035 | Location: Cochrane | Province: Ontario ||
 
 FBWII:
-|| CGNDBID: FBWII ---> Geographic Name: La Renouche | Generic Term: Dispersed Rural Community | Latitude: 45.546112 | Longitude: -74.486115 | Location: Prescott ||
+|| CGNDBID: FBWII ---> Geographic Name: La Renouche | Generic Term: Dispersed Rural Community | Latitude: 45.5461111 | Longitude: -74.4861111 | Location: Prescott | Province: Ontario ||
 
 
 Abbottsfield:
 Term was not found
 
 Esker Creek:
-|| CGNDBID: FBCXC ---> Geographic Name: Esker Creek | Generic Term: Creek | Latitude: 48.12905 | Longitude: -80.997925 | Location: Timiskaming ||
-
-
+|| CGNDBID: FBCXC ---> Geographic Name: Esker Creek | Generic Term: Creek | Latitude: 48.129052 | Longitude: -80.997922 | Location: Timiskaming | Province: Ontario ||
 Safety Pin Bend:
 Term was not found
 
 Oak Point:
-|| CGNDBID: FCGKM ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 46.13821 | Longitude: -82.28358 | Location: Algoma ||
-|| CGNDBID: FCGKK ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.2359 | Longitude: -76.33486 | Location: Frontenac ||
-|| CGNDBID: FCGKL ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 49.546944 | Longitude: -94.679726 | Location: Kenora ||
-|| CGNDBID: FCGKP ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.29217 | Longitude: -77.98542 | Location: Northumberland ||
-|| CGNDBID: FCGKO ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.85684 | Longitude: -79.29059 | Location: Muskoka ||
+|| CGNDBID: FCGKM ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 46.13821 | Longitude: -82.28358 | Location: Algoma | Province: Ontario ||
+|| CGNDBID: FCGKK ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.2359 | Longitude: -76.33486 | Location: Frontenac | Province: Ontario ||
+|| CGNDBID: FCGKL ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 49.5469445 | Longitude: -94.6797222 | Location: Kenora | Province: Ontario ||
+|| CGNDBID: FCGKP ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.29217 | Longitude: -77.98542 | Location: Northumberland | Province: Ontario ||
+|| CGNDBID: FCGKO ---> Geographic Name: Oak Point | Generic Term: Point | Latitude: 44.85684 | Longitude: -79.29059 | Location: Muskoka | Province: Ontario ||
 
 
 Zealand:
-|| CGNDBID: FIDTE ---> Geographic Name: Airport Road Conservation Reserve | Generic Term: Conservation Reserve | Latitude: 49.82636 | Longitude: -92.76316 | Location: Zealand ||
+|| CGNDBID: FIDTE ---> Geographic Name: Airport Road Conservation Reserve | Generic Term: Conservation Reserve | Latitude: 49.826359 | Longitude: -92.763163 | Location: Zealand | Province: Ontario ||
 
-
+Latitude [41.966667]:
+|| CGNDBID: FEZVK ---> Geographic Name: Parc national du Canada de la Pointe-Pelée | Generic Term: National Park | Latitude: 41.966667 | Longitude: -82.516667 | Location: Essex | Province: Ontario ||
+Latitude [47.82957]:
+|| CGNDBID: FARBX ---> Geographic Name: Clarity Lake | Generic Term: Lake | Latitude: 47.82957 | Longitude: -83.34689 | Location: Sudbury | Province: Ontario ||

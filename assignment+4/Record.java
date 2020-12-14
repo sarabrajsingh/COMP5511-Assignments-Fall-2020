@@ -1,5 +1,4 @@
 // a custom class that represents each unique record from the GNIS file
-
 public class Record implements Comparable<Record> {
   private String cgndbId;
   private String geographicName;

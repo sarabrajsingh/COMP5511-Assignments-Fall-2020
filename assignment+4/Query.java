@@ -1,6 +1,6 @@
-// a custom class that represents a given query
+import java.util.ArrayList;
 
-import java.util.*;
+// a custom class that represents a given query
 
 public class Query {
   // data members

@@ -117,7 +117,7 @@ READING QUERIES AND SAVING RESULTS TO LOG FILE...
 ```
 
 #### Example of the Output File
-
+```bash
 IAUCC:
 Record was not found
 
